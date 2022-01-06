@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.nnk.springboot.domain.Rating;
 import com.nnk.springboot.domain.RuleName;
 import com.nnk.springboot.services.RuleNameService;
 
@@ -59,7 +58,7 @@ public class RuleNameController {
     public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
     	logger.info("INFO: Afficher les onglets pour mettre à jour un 'ruleName' déjà existant dans l'application");
         // TODO: get RuleName by Id and to model then show to the form -> OK
-    	Rating ruleName = ruleNameService.findById(id);
+    	RuleName ruleName = ruleNameService.findById(id);
 		model.addAttribute("ruleName", ruleName);
         return "ruleName/update";
     }
