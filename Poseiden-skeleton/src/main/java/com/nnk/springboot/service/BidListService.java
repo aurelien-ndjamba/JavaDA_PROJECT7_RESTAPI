@@ -25,4 +25,12 @@ public class BidListService {
 		return bid;
 	}
 
+	public BidList findById(Integer id) {
+		return bidListRepository.findById(id).get();
+	}
+
+	public void deleteById(Integer id) {
+		bidListRepository.deleteById(id);
+	}
+	
 }
