@@ -7,6 +7,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
 
 import lombok.Data;
 
@@ -18,7 +19,9 @@ public class BidList {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer BidListId;
+	@NotBlank(message = "Account is mandatory")
 	private String account;
+	@NotBlank(message = "Type is mandatory")
 	private String type;
 	private Double bidQuantity;
 	private Double askQuantity;
