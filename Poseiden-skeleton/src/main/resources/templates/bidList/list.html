@@ -46,9 +46,9 @@
 						<td><span data-th-text="${bl.type}"> </span></td>
 						<td><span data-th-text="${bl.bidQuantity}"> </span></td>
 						<td> 
-						<a th:href="@{/bidList/update/${bl.BidListId}}" ><span>Edit</span></a>
+						<a th:href="@{/bidList/update/{id}(id=${bl.BidListId})}" ><span>Edit</span></a>
 						&nbsp;|&nbsp;
-						<a th:href="@{/bidList/delete/${bl.BidListId}}"><span>Delete</span></a>
+						<a th:href="@{/bidList/delete/{id}(id=${bl.BidListId})}"><span>Delete</span></a>
 						</td>
 					</tr>
 
