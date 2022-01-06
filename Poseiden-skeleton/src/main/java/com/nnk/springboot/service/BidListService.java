@@ -2,6 +2,8 @@ package com.nnk.springboot.service;
 
 import java.util.ArrayList;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +18,11 @@ public class BidListService {
 
 	public ArrayList<BidList> findAll() {
 		return bidListRepository.findAll();
+	}
+
+	public BidList save(@Valid BidList bid) {
+		bidListRepository.save(bid);
+		return bid;
 	}
 
 }
