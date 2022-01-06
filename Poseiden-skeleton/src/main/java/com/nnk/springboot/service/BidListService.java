@@ -21,8 +21,7 @@ public class BidListService {
 	}
 
 	public BidList save(@Valid BidList bid) {
-		bidListRepository.save(bid);
-		return bid;
+		return bidListRepository.save(bid);
 	}
 
 	public BidList findById(Integer id) {

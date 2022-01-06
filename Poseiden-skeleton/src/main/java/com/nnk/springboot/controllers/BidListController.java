@@ -56,7 +56,7 @@ public class BidListController {
 	@GetMapping("/bidList/update/{id}")
 	public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
 		logger.info("INFO: Afficher les onglets pour mettre à jour un 'bidlist' déjà existant dans l'application");
-		// TODO: get Bid by Id and to model then show to the form
+		// TODO: get Bid by Id and to model then show to the form -> OK
 		BidList bidList = bidListService.findById(id);
 		model.addAttribute("bidList", bidList);
 		return "bidList/update";
@@ -65,7 +65,7 @@ public class BidListController {
 	@PostMapping("/bidList/update/{id}")
 	public String updateBid(@PathVariable("id") Integer id, @Valid BidList bidList, BindingResult result) { // , Model model
 		logger.info("INFO: Mettre à jour un 'bidlist' déjà existant dans l'application");
-		// TODO: check required fields, if valid call service to update Bid and return list Bid
+		// TODO: check required fields, if valid call service to update Bid and return list Bid -> OK
 		if (result.hasErrors()) {
 			return "bidList/update";
 		} else {
@@ -77,7 +77,7 @@ public class BidListController {
 	@GetMapping("/bidList/delete/{id}")
 	public String deleteBid(@PathVariable("id") Integer id) { // , Model model
 		logger.info("INFO: Supprimer un 'bidlist' existant dans l'application");
-		// TODO: Find Bid by Id and delete the bid, return to Bid list
+		// TODO: Find Bid by Id and delete the bid, return to Bid list -> OK
 		bidListService.deleteById(id);
 		return "redirect:/bidList/list";
 	}
