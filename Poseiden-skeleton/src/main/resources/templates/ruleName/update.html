@@ -18,6 +18,24 @@
 			<!--
 			TODO: Create a form to edit the values of RuleName, there are 2 buttons: Update data and Cancel to the RuleName
 			 -->
+			 <label for="name">Name</label> <input type="text" id="name"
+					th:field="*{name}" class="form-control" placeholder="Name" required />
+
+				<label for="description">Description</label> <input type="text"
+					id="description" th:field="*{description}" class="form-control"
+					placeholder="Description" required /> <label for="json">Json</label>
+				<input type="text" id="json" th:field="*{json}" class="form-control"
+					placeholder="Json" required /> <label for="template">Template</label>
+				<input type="text" id="template" th:field="*{template}"
+					class="form-control" placeholder="Template" required /> <label
+					for="sql">Sql</label> <input type="text" id="sql" th:field="*{sql}"
+					class="form-control" placeholder="Sql" required /> <label
+					for="sqlPart">SqlPart</label> <input type="text" id="sqlPart"
+					th:field="*{sqlPart}" class="form-control" placeholder="SqlPart"
+					required />
+
+				<button th:href="@{/ruleName/list}" class="btn btn-danger">Cancel</button>
+				<button type="submit" class="btn btn-primary">Add Rating</button>
 
 		</form>
 	</div>

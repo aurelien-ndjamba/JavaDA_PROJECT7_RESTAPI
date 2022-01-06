@@ -78,6 +78,7 @@ public class RatingController {
 
 	@GetMapping("/rating/delete/{id}")
 	public String deleteRating(@PathVariable("id") Integer id) {
+		logger.info("INFO: Supprimer un 'rating' existant dans l'application");
 		// TODO: Find Rating by Id and delete the Rating, return to Rating list -> OK
 		ratingService.deleteById(id);
 		return "redirect:/rating/list";

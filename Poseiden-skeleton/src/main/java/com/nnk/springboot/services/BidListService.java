@@ -20,7 +20,7 @@ public class BidListService {
 		return bidListRepository.findAll();
 	}
 
-	public BidList save(@Valid BidList bid) {
+	public @Valid BidList save(@Valid BidList bid) {
 		return bidListRepository.save(bid);
 	}
 
