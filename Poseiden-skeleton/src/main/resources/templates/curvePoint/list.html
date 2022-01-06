@@ -38,20 +38,18 @@
 			</thead>
 			<tbody>
 			<!-- TODO: Show all CurvePoint to the table, the action column will have Edit & Delete buttons -->
-			<tr data-th-each="cp:${curvePoints}">
+					<tr data-th-each="cp:${curvePoints}">
 						<td><span data-th-text="${cp.id}"> </span></td>
 						<td><span data-th-text="${cp.curveId}"> </span></td>
 						<td><span data-th-text="${cp.term}"> </span></td>
 						<td><span data-th-text="${cp.value}"> </span></td>
-						<td> 
-						<a th:href="@{/bidList/update/{id}(id=${cp.id})}" ><span>Edit</span></a>
-						&nbsp;|&nbsp;
-						<a th:href="@{/bidList/delete/{id}(id=${cp.id})}"><span>Delete</span></a>
+						<td><a th:href="@{/bidList/update/{id}(id=${cp.id})}"><span>Edit</span></a>
+							&nbsp;|&nbsp; <a th:href="@{/bidList/delete/{id}(id=${cp.id})}"><span>Delete</span></a>
 						</td>
 					</tr>
-			
-			
-			</tbody>
+
+
+				</tbody>
 		</table>
 	</div>
 </div>

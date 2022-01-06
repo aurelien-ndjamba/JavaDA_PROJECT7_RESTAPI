@@ -18,6 +18,28 @@
 			<!--
 			TODO: Create a form to input the values of Rating, there are 2 buttons: Save data and Cancel to the list Rating
 			 -->
+			 <label for="moodysRating">MoodysRating</label> 
+			 <input type="text" id="moodysRating"
+					th:field="*{moodysRating}" class="form-control" placeholder="MoodysRating"
+					required /> 
+					
+					<label for="SandPRating">SandPRating</label> 
+					<input type="text"
+					id="sandPRating" th:field="*{sandPRating}" class="form-control"
+					placeholder="SandPRating" required /> 
+					
+					<label for="fitchRating">FitchRating</label>
+					<input type="text" id="fitchRating"
+					th:field="*{fitchRating}" class="form-control"
+					placeholder="FitchRating" required /> 
+					
+					<label for="orderNumber">Order</label>
+					<input type="number" id="fitchRating"
+					th:field="*{orderNumber}" step="1" class="form-control"
+					placeholder="Order" required /> 
+					
+					<button th:href="@{/rating/list}" class="btn btn-danger">Cancel</button>
+					<button type="submit" class="btn btn-primary">Add Rating</button>
 
 		</form>
 	</div>
