@@ -18,11 +18,11 @@ public class CurvePoint {
     // TODO: Map columns in data table CURVEPOINT with corresponding java fields
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	Integer id;
+	private Integer id;
 	@NotNull(message = "must not be null")
-	Integer curveId;
-	Timestamp asOfDate;
-	Double term;
-	Double value;
-	Timestamp creationDate;
+	private Integer curveId;
+	private Timestamp asOfDate;
+	private Double term;
+	private Double value;
+	private Timestamp creationDate;
 }
