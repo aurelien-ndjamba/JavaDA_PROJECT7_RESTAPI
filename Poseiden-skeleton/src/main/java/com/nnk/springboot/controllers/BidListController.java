@@ -12,19 +12,23 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.ArrayList;
+
 import javax.validation.Valid;
 
 
 @Controller
 public class BidListController {
-    // TODO: Inject Bid service
+    // TODO: Inject Bid service -> OK
 	@Autowired
 	private BidListService bidListService;
 
     @RequestMapping("/bidList/list")
     public String home(Model model)
     {
-        // TODO: call service find all bids to show to the view
+        // TODO: call service find all bids to show to the view -> OK
+    	ArrayList<BidList> bidLists = bidListService.findAll();
+    	model.addAttribute("bidLists",bidLists);
         return "bidList/list";
     }
 
