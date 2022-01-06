@@ -1,26 +1,40 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" 
-	  xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="utf-8"/>
+<meta charset="utf-8" />
 <title>Home</title>
-<link rel="stylesheet" href="../../css/bootstrap.min.css" >
+<link rel="stylesheet" href="../../css/bootstrap.min.css">
 </head>
 <body>
-<div class="container">
+	<div class="container">
 
-	<div class="row">
-		<h2>Add New Bid</h2>
-	</div>
+		<div class="row">
+			<h2>Add New Bid</h2>
+		</div>
 
-	<div class="row">
-		<form action="#" th:action="@{/bidList/validate}" th:object="${bidList}" method="post" class="form-horizontal" style="width: 100%">
-			<!--
+		<div class="row">
+			<form action="#" th:action="@{/bidList/validate}"
+				th:object="${bidList}" method="post" class="form-horizontal"
+				style="width: 100%">
+				<!--
 			TODO: Create a form to input the values of Bid, there are 2 buttons: Save data and Cancel to the list Bid
 			 -->
-		</form>
-	</div>
+				<label for="account">Account</label> <input type="text" id="account"
+					th:field="*{account}" class="form-control" placeholder="Account"
+					required /> <label for="type">Type</label> <input type="text"
+					id="type" th:field="*{type}" class="form-control"
+					placeholder="Type" required /> <label for="bidQuantity">Bid
+					Quantity</label><input type="number" id="bidQuantity"
+					th:field="*{bidQuantity}" class="form-control"
+					placeholder="Bid Quantity" step="0.01" required /> 
+					
+					<button th:href="@{/bidList/list}" class="btn btn-danger">Cancel</button>
+					<button type="submit" class="btn btn-primary">Add BidList</button>
+					
+			</form>
+		</div>
 
-</div>
+	</div>
 </body>
 </html>
