@@ -15,7 +15,7 @@ public class RatingService {
 	
 	@Autowired
 	private RatingRepository ratingRepository;
-
+ 
 	public ArrayList<Rating> findAll() {
 		return ratingRepository.findAll();
 	}

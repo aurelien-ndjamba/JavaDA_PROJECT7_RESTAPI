@@ -1,7 +1,8 @@
 package com.nnk.springboot.controllers;
 
-import com.nnk.springboot.domain.BidList;
-import com.nnk.springboot.services.BidListService;
+import java.util.ArrayList;
+
+import javax.validation.Valid;
 
 import org.jboss.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,9 +14,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import java.util.ArrayList;
-
-import javax.validation.Valid;
+import com.nnk.springboot.domain.BidList;
+import com.nnk.springboot.services.BidListService;
 
 @Controller
 public class BidListController {
@@ -37,19 +37,32 @@ public class BidListController {
 	@GetMapping("/bidList/add")
 	public String addBidForm(BidList bid, Model model) {
 		logger.info("INFO: Afficher les onglets pour ajouter un nouveau 'bidlist' dans l'application");
-		model.addAttribute("bidList",new BidList());
+		model.addAttribute("bidList", new BidList());
 		return "bidList/add";
 	}
 
 	@PostMapping("/bidList/validate")
-	public String validate(@Valid BidList bid, BindingResult result) { // , Model model
+	public String validate(@Valid BidList bid, BindingResult result, Model model) {
 		logger.info("INFO: Ajouter un nouveau 'bidlist' dans l'application");
 		// TODO: check data valid and save to db, after saving return bid list -> OK
-		if (result.hasErrors()) {
-			return "/bidList/add";
+//		System.out.println("===================================");
+//		System.out.println(result.getFieldErrorCount());
+//		System.out.println("===================================");
+//		System.out.println(result.getTarget());
+//		System.out.println("===================================");
+//		System.out.println(result.getFieldError().getDefaultMessage());
+//		System.out.println("===================================");
+//		System.out.println(result.getFieldError("type").getDefaultMessage()); 
+//		System.out.println("===================================");
+		if (result.hasErrors()) { 
+			if (result.getFieldError("account") != null)
+				model.addAttribute("exAccount", result.getFieldError("account").getDefaultMessage());
+			if (result.getFieldError("type") != null)
+				model.addAttribute("exType", result.getFieldError("type").getDefaultMessage());
+			return "bidList/add";
 		} else {
 			bidListService.save(bid);
-			return "redirect:/bidList/list"; 
+			return "redirect:/bidList/list";
 		}
 	}
 
@@ -57,18 +70,24 @@ public class BidListController {
 	public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
 		logger.info("INFO: Afficher les onglets pour mettre à jour un 'bidlist' déjà existant dans l'application");
 		// TODO: get Bid by Id and to model then show to the form -> OK
-		BidList bidList = bidListService.findById(id);
+		BidList bidList = bidListService.findById(id); 
 		model.addAttribute("bidList", bidList);
 		return "bidList/update";
-	}
+	} 
 
 	@PostMapping("/bidList/update/{id}")
-	public String updateBid(@PathVariable("id") Integer id, @Valid BidList bidList, BindingResult result) { // , Model model
+	public String updateBid(@PathVariable("id") Integer id, @Valid BidList bidList, BindingResult result, Model model) {
 		logger.info("INFO: Mettre à jour un 'bidlist' déjà existant dans l'application");
-		// TODO: check required fields, if valid call service to update Bid and return list Bid -> OK
+		// TODO: check required fields, if valid call service to update Bid and return
+		// list Bid -> OK 
 		if (result.hasErrors()) {
-			return "bidList/update";
-		} else {
+			if (result.getFieldError("account") != null)
+				model.addAttribute("exAccount", result.getFieldError("account").getDefaultMessage());
+			if (result.getFieldError("type") != null)
+				model.addAttribute("exType", result.getFieldError("type").getDefaultMessage());
+			return "bidList/update"; 
+		} else { 
+			bidList.setBidListId(id);
 			bidListService.save(bidList);
 			return "redirect:/bidList/list";
 		}

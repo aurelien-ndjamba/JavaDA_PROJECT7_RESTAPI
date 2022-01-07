@@ -47,7 +47,7 @@
 						<td><span data-th-text="${r.sandPRating}"> </span></td>
 						<td><span data-th-text="${r.fitchRating}"> </span></td>
 						<td><span data-th-text="${r.orderNumber}"> </span></td>
-						<td><a th:href="@{/rating/update/{id}(id=${r.id})}"><span>Edit</span></a>
+						<td style="text-align:center"><a th:href="@{/rating/update/{id}(id=${r.id})}"><span>Edit</span></a>
 							&nbsp;|&nbsp; <a th:href="@{/rating/delete/{id}(id=${r.id})}"><span>Delete</span></a>
 						</td>
 					</tr>

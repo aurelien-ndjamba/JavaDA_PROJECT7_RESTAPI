@@ -2,8 +2,6 @@ package com.nnk.springboot.services;
 
 import java.util.ArrayList;
 
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,7 +18,7 @@ public class RuleNameService {
 		return ruleNameRepository.findAll();
 	}
 
-	public @Valid RuleName save(@Valid RuleName ruleName) {
+	public RuleName save(RuleName ruleName) {
 		return ruleNameRepository.save(ruleName);
 	}
 

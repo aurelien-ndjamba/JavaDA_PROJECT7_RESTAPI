@@ -13,7 +13,7 @@
 		</div>
 
 		<div class="row">
-			<form action="#"
+			<form
 				th:action="@{/trade/update/{id}(id=${trade.tradeId})}"
 				th:object="${trade}" method="post" class="form-horizontal"
 				style="width: 100%">
@@ -22,58 +22,57 @@
 			 -->
 				<label for="account">Account</label> <input type="text" id="account"
 					th:field="*{account}" class="form-control" placeholder="Account"
-					required /> <label for="type">Type</label> <input type="text"
-					id="type" th:field="*{type}" class="form-control"
-					placeholder="Type" required /> <label for="buyQuantity">BuyQuantity</label>
-				<input type="number" id="buyQuantity" th:field="*{buyQuantity}"
+					required /> <br>
+				<label for="type">Type</label> <input type="text" id="type"
+					th:field="*{type}" class="form-control" placeholder="Type" required />
+				<br> <label for="buyQuantity">BuyQuantity</label> <input
+					type="number" id="buyQuantity" th:field="*{buyQuantity}"
 					step="0.01" class="form-control" placeholder="BuyQuantity" required />
-
-				<label for="sellQuantity">SellQuantity</label> <input type="number"
-					id="sellQuantity" th:field="*{sellQuantity}" step="0.01"
-					class="form-control" placeholder="SellQuantity" required /> <label
-					for="buyPrice">BuyPrice</label> <input type="number" id="buyPrice"
-					th:field="*{buyPrice}" step="0.01" class="form-control"
-					placeholder="BuyPrice" required /> <label for="sellPrice">SellPrice</label>
-				<input type="number" id="sellPrice" th:field="*{sellPrice}"
-					step="0.01" class="form-control" placeholder="SellPrice" required />
-
+				<br> <label for="sellQuantity">SellQuantity</label> <input
+					type="number" id="sellQuantity" th:field="*{sellQuantity}"
+					step="0.01" class="form-control" placeholder="SellQuantity"
+					required /><br> <label for="buyPrice">BuyPrice</label> <input
+					type="number" id="buyPrice" th:field="*{buyPrice}" step="0.01"
+					class="form-control" placeholder="BuyPrice" required /> <br>
+				<label for="sellPrice">SellPrice</label> <input type="number"
+					id="sellPrice" th:field="*{sellPrice}" step="0.01"
+					class="form-control" placeholder="SellPrice" required /> <br>
 				<label for="benchmark">Benchmark</label> <input type="text"
 					id="benchmark" th:field="*{benchmark}" class="form-control"
-					placeholder="Benchmark" required /> <label for="tradeDate">TradeDate</label>
-				<input type="datetime" id="tradeDate" th:field="*{tradeDate}"
-					class="form-control" placeholder="TradeDate" required /> <label
+					placeholder="Benchmark" required /> <br>
+				<label for="tradeDate">TradeDate</label> <input type="datetime"
+					id="tradeDate" th:field="*{tradeDate}" class="form-control"
+					placeholder="TradeDate" /> <br> <label
 					for="security">Security</label> <input type="text" id="security"
 					th:field="*{security}" class="form-control" placeholder="Security"
-					required /> <label for="status">Status</label> <input type="text"
-					id="status" th:field="*{status}" class="form-control"
-					placeholder="Status" required /> <label for="trader">Trader</label>
+					required /> <br> <label for="status">Status</label> <input
+					type="text" id="status" th:field="*{status}" class="form-control"
+					placeholder="Status" required /> <br> <label for="trader">Trader</label>
 				<input type="text" id="trader" th:field="*{trader}"
-					class="form-control" placeholder="Trader" required /> <label
+					class="form-control" placeholder="Trader" required /> <br> <label
 					for="book">Book</label> <input type="text" id="book"
 					th:field="*{book}" class="form-control" placeholder="Book" required />
-
+				<br>
 				<label for="creationName">CreationName</label> <input type="text"
 					id="creationName" th:field="*{creationName}" class="form-control"
-					placeholder="CreationName" required /> <label for="creationDate">CreationDate</label>
-				<input type="datetime" id="creationDate" th:field="*{creationDate}"
-					class="form-control" placeholder="CreationDate" required /> <label
+					placeholder="CreationName" required /> <br> <label
 					for="revisionName">RevisionName</label> <input type="text"
 					id="revisionName" th:field="*{revisionName}" class="form-control"
-					placeholder="RevisionName" required /> <label for="revisionDate">RevisionDate</label>
-				<input type="datetime" id="revisionDate" th:field="*{revisionDate}"
-					class="form-control" placeholder="RevisionDate" required /> <label
+					placeholder="RevisionName" required /> <br> <label
+					for="revisionDate">RevisionDate</label> <input type="datetime"
+					id="revisionDate" th:field="*{revisionDate}" class="form-control"
+					placeholder="RevisionDate" /> <br> <label
 					for="dealName">DealName</label> <input type="text" id="dealName"
 					th:field="*{dealName}" class="form-control" placeholder="DealName"
-					required /> <label for="dealType">DealType</label> <input
+					required /> <br> <label for="dealType">DealType</label> <input
 					type="text" id="dealType" th:field="*{dealType}"
-					class="form-control" placeholder="DealType" required /> <label
-					for="sourceListId">SourceListId</label> <input type="text"
+					class="form-control" placeholder="DealType" required /> <br>
+				<label for="sourceListId">SourceListId</label> <input type="text"
 					id="sourceListId" th:field="*{sourceListId}" class="form-control"
-					placeholder="SourceListId" required /> <label for="side">Side</label>
+					placeholder="SourceListId" required /> <br> <label for="side">Side</label>
 				<input type="text" id="side" th:field="*{side}" class="form-control"
-					placeholder="Side" required />
-
-				<button th:href="@{/trade/list}" class="btn btn-danger">Cancel</button>
+					placeholder="Side" required /> <br> <a
+					th:href="@{/trade/list}" class="btn btn-danger">Cancel</a>
 				<button type="submit" class="btn btn-primary">Update Trade</button>
 
 			</form>

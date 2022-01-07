@@ -1,44 +1,45 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" 
-	  xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="utf-8"/>
+<meta charset="utf-8" />
 <title>Home</title>
-<link rel="stylesheet" href="../../css/bootstrap.min.css" >
+<link rel="stylesheet" href="../../css/bootstrap.min.css">
 </head>
 <body>
-<div class="container">
+	<div class="container">
 
-	<div class="row">
-		<h2>Add New Curve Point</h2>
-	</div>
+		<div class="row">
+			<h2>Add New Curve Point</h2>
+		</div>
 
-	<div class="row">
-		<form action="#" th:action="@{/curvePoint/validate}" th:object="${curvePoint}" method="post" class="form-horizontal" style="width: 100%">
-			<!--
+		<div class="row">
+			<form th:action="@{/curvePoint/validate}"
+				th:object="${curvePoint}" method="post" class="form-horizontal"
+				style="width: 100%">
+				<!--
 			TODO: Create a form to input the values of CurvePoint, there are 2 buttons: Save data and Cancel to the list CurvePoint
 			 -->
-			 <label for="curveId">Curve Id</label> 
-			 <input type="number" id="curveId"
-					th:field="*{curveId}" step="1" class="form-control" placeholder="Curve Id"
-					required /> 
-					
-					<label for="type">Type</label> 
-					<input type="text"
-					id="term" th:field="*{term}" step="0.01" class="form-control"
-					placeholder="Type" required /> 
-					
-					<label for="value">Value</label>
-					<input type="number" id="value"
-					th:field="*{value}" step="0.01" class="form-control"
-					placeholder="Value" required /> 
-					
-					<button th:href="@{/curvePoint/list}" class="btn btn-danger">Cancel</button>
-					<button type="submit" class="btn btn-primary">Add CurvePoint</button>
+				<label for="curveId">Curve Id</label> <input type="number"
+					id="curveId" th:field="*{curveId}" step="1" class="form-control"
+					placeholder="Curve Id" />
+				<p> 
+					<span data-th-if="${exCurveId}" style="color: red"> <span
+						th:text="${exCurveId}"> </span></span>
+				</p>
 
-		</form>
+				<label for="type">Term</label> <input type="number" id="term"
+					th:field="*{term}" step="0.01" class="form-control"
+					placeholder="Type" /> <br> <label for="value">Value</label> <input
+					type="number" id="value" th:field="*{value}" step="0.01"
+					class="form-control" placeholder="Value" /> <br> <a
+					th:href="@{/curvePoint/list}" class="btn btn-danger">Cancel</a>
+				<button type="submit" class="btn btn-primary">Add
+					CurvePoint</button>
+
+			</form>
+		</div>
+
 	</div>
-
-</div>
 </body>
 </html>

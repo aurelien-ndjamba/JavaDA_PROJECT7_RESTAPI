@@ -9,11 +9,17 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 
-import lombok.Data;
+import org.hibernate.annotations.CreationTimestamp;
+import org.springframework.validation.annotation.Validated;
 
+import lombok.Data;
+import lombok.NoArgsConstructor;
+ 
 @Data
+@NoArgsConstructor
 @Entity
 @Table(name = "bidlist")
+@Validated
 public class BidList {
     // TODO: Map columns in data table BIDLIST with corresponding java fields
 	@Id
@@ -27,14 +33,15 @@ public class BidList {
 	private Double askQuantity;
 	private Double bid;
 	private Double ask;
-	private String benchmark;
+	private String benchmark; 
 	private Timestamp bidListDate;
 	private String commentary;
 	private String security;
 	private String status;
 	private String trader;
-	private String book;
+	private String book; 
 	private String creationName;
+	@CreationTimestamp
 	private Timestamp creationDate;
 	private String revisionName;
 	private Timestamp revisionDate;
@@ -42,4 +49,13 @@ public class BidList {
 	private String dealType;
 	private String sourceListId;
 	private String side;
+	
+	public BidList(@NotBlank(message = "Account is mandatory") String account,
+			@NotBlank(message = "Type is mandatory") String type, Double bidQuantity) {
+		super();
+		this.account = account;
+		this.type = type;
+		this.bidQuantity = bidQuantity;
+	}
+	
 }

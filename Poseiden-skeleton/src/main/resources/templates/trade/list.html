@@ -43,7 +43,7 @@
 						<td><span data-th-text="${t.account}"> </span></td>
 						<td><span data-th-text="${t.type}"> </span></td>
 						<td><span data-th-text="${t.buyQuantity}"> </span></td>
-						<td><a th:href="@{/trade/update/{id}(id=${t.id})}"><span>Edit</span></a>
+						<td style="text-align:center"><a th:href="@{/trade/update/{id}(id=${t.id})}"><span>Edit</span></a>
 							&nbsp;|&nbsp; <a th:href="@{/trade/delete/{id}(id=${t.id})}"><span>Delete</span></a>
 						</td>
 					</tr>

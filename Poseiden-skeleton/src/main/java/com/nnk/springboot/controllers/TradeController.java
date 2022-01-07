@@ -2,19 +2,15 @@ package com.nnk.springboot.controllers;
 
 import java.util.ArrayList;
 
-import javax.validation.Valid;
-
 import org.jboss.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.nnk.springboot.domain.RuleName;
 import com.nnk.springboot.domain.Trade;
 import com.nnk.springboot.services.TradeService;
 
@@ -43,15 +39,11 @@ public class TradeController {
 	}
 
 	@PostMapping("/trade/validate")
-	public String validate(@Valid Trade trade, BindingResult result, Model model) {
+	public String validate(Trade trade) {
 		logger.info("INFO: Ajouter un nouveau 'trade' dans l'application");
 		// TODO: check data valid and save to db, after saving return Trade list -> OK
-		if (result.hasErrors()) {
-			return "/trade/add";
-		} else {
-			tradeService.save(trade);
-			return "redirect:/trade/list";
-		}
+		tradeService.save(trade);
+		return "redirect:/trade/list";
 	}
 
 	@GetMapping("/trade/update/{id}")
@@ -64,16 +56,13 @@ public class TradeController {
 	}
 
 	@PostMapping("/trade/update/{id}")
-	public String updateTrade(@PathVariable("id") Integer id, @Valid Trade trade, BindingResult result, Model model) {
+	public String updateTrade(@PathVariable("id") Integer id, Trade trade) {
 		logger.info("INFO: Mettre à jour un 'trade' déjà existant dans l'application");
 		// TODO: check required fields, if valid call service to update Trade and return
 		// Trade list -> OK
-		if (result.hasErrors()) {
-			return "trade/update";
-		} else {
-			tradeService.save(trade);
-			return "redirect:/trade/list";
-		}
+		trade.setTradeId(id);
+		tradeService.save(trade);
+		return "redirect:/trade/list";
 	}
 
 	@GetMapping("/trade/delete/{id}")

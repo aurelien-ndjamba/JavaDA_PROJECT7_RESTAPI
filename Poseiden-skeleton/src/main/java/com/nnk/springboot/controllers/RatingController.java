@@ -2,13 +2,10 @@ package com.nnk.springboot.controllers;
 
 import java.util.ArrayList;
 
-import javax.validation.Valid;
-
 import org.jboss.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,7 +17,7 @@ import com.nnk.springboot.services.RatingService;
 @Controller
 public class RatingController {
 	private Logger logger = Logger.getLogger(this.getClass());
-	
+
 	// TODO: Inject Rating service
 	@Autowired
 	private RatingService ratingService;
@@ -37,20 +34,16 @@ public class RatingController {
 	@GetMapping("/rating/add")
 	public String addRatingForm(Rating rating, Model model) {
 		logger.info("INFO: Afficher les onglets pour ajouter un nouveau 'rating' dans l'application");
-		model.addAttribute("rating",new Rating());
+		model.addAttribute("rating", new Rating());
 		return "rating/add";
 	}
 
 	@PostMapping("/rating/validate")
-	public String validate(@Valid Rating rating, BindingResult result) {
+	public String validate(Rating rating) {
 		logger.info("INFO: Ajouter un nouveau 'rating' dans l'application");
 		// TODO: check data valid and save to db, after saving return Rating list -> OK
-		if (result.hasErrors()) {
-			return "/rating/add";
-		} else {
-			ratingService.save(rating);
-			return "redirect:/curvePoint/list"; 
-		}
+		ratingService.save(rating);
+		return "redirect:/rating/list";
 	}
 
 	@GetMapping("/rating/update/{id}")
@@ -63,17 +56,13 @@ public class RatingController {
 	}
 
 	@PostMapping("/rating/update/{id}")
-	public String updateRating(@PathVariable("id") Integer id, @Valid Rating rating, BindingResult result,
-			Model model) {
+	public String updateRating(@PathVariable("id") Integer id, Rating rating) {
 		logger.info("INFO: Mettre à jour un 'rating' déjà existant dans l'application");
 		// TODO: check required fields, if valid call service to update Rating and
 		// return Rating list -> OK
-		if (result.hasErrors()) {
-			return "rating/update";
-		} else {
-			ratingService.save(rating);
-			return "redirect:/rating/list";
-		}
+		rating.setId(id);
+		ratingService.save(rating);
+		return "redirect:/rating/list";
 	}
 
 	@GetMapping("/rating/delete/{id}")

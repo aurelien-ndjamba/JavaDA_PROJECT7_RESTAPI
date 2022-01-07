@@ -3,7 +3,7 @@
 	xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="utf-8" />
-<title>Home</title>
+<title>Add New Bid</title>
 <link rel="stylesheet" href="../../css/bootstrap.min.css">
 </head>
 <body>
@@ -14,24 +14,30 @@
 		</div>
 
 		<div class="row">
-			<form action="#" th:action="@{/bidList/validate}"
+			<form th:action="@{/bidList/validate}"
 				th:object="${bidList}" method="post" class="form-horizontal"
 				style="width: 100%">
 				<!--
 			TODO: Create a form to input the values of Bid, there are 2 buttons: Save data and Cancel to the list Bid
 			 -->
-				<label for="account">Account</label> <input type="text" id="account"
-					th:field="*{account}" class="form-control" placeholder="Account"
-					required /> <label for="type">Type</label> <input type="text"
-					id="type" th:field="*{type}" class="form-control"
-					placeholder="Type" required /> <label for="bidQuantity">Bid
-					Quantity</label><input type="number" id="bidQuantity"
-					th:field="*{bidQuantity}" class="form-control"
-					placeholder="Bid Quantity" step="0.01" required /> 
-					
-					<button th:href="@{/bidList/list}" class="btn btn-danger">Cancel</button>
+				<label for="account">Account</label> <input type="text"
+					id="account" th:field="*{account}" class="form-control"
+					placeholder="Account" />
+				<p>
+					<span data-th-if="${exAccount}" style="color: red"> <span
+						th:text="${exAccount}"> </span></span>
+				</p>
+				<label for="type">Type</label> <input type="text" id="type"
+					th:field="*{type}" class="form-control" placeholder="Type" />
+				<p>
+					<span data-th-if="${exType}" style="color: red"> <span
+						th:text="${exType}"> </span></span>
+				</p>
+				<label for="bidQuantity">Bid quantity</label><input type="number"
+					id="bidQuantity" th:field="*{bidQuantity}" class="form-control"
+					placeholder="Bid quantity" step="0.01" /> <br> 
+					<a href="/bidList/list" class="btn btn-danger">Cancel</a>
 					<button type="submit" class="btn btn-primary">Add BidList</button>
-					
 			</form>
 		</div>
 

@@ -7,8 +7,10 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@NoArgsConstructor
 @Entity
 @Table(name = "rulename")
 public class RuleName {
@@ -22,4 +24,14 @@ public class RuleName {
 	private String template;
 	private String sqlStr;
 	private String sqlPart;
+	
+	public RuleName(String name, String description, String json, String template, String sqlStr, String sqlPart) {
+		super();
+		this.name = name;
+		this.description = description;
+		this.json = json;
+		this.template = template;
+		this.sqlStr = sqlStr;
+		this.sqlPart = sqlPart;
+	}
 }

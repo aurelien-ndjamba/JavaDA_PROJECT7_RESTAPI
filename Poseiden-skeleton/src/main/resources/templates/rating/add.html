@@ -1,49 +1,42 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" 
-	  xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="utf-8"/>
+<meta charset="utf-8" />
 <title>Home</title>
-<link rel="stylesheet" href="../../css/bootstrap.min.css" >
+<link rel="stylesheet" href="../../css/bootstrap.min.css">
 </head>
 <body>
-<div class="container">
+	<div class="container">
 
-	<div class="row">
-		<h2>Add New Rating</h2>
-	</div>
+		<div class="row">
+			<h2>Add New Rating</h2>
+		</div>
 
-	<div class="row">
-		<form action="#" th:action="@{/rating/validate}" th:object="${rating}" method="post" class="form-horizontal" style="width: 100%">
-			<!--
+		<div class="row">
+			<form th:action="@{/rating/validate}" th:object="${rating}"
+				method="post" class="form-horizontal" style="width: 100%">
+				<!--
 			TODO: Create a form to input the values of Rating, there are 2 buttons: Save data and Cancel to the list Rating
 			 -->
-			 <label for="moodysRating">MoodysRating</label> 
-			 <input type="text" id="moodysRating"
-					th:field="*{moodysRating}" class="form-control" placeholder="MoodysRating"
-					required /> 
-					
-					<label for="SandPRating">SandPRating</label> 
-					<input type="text"
+				<label for="moodysRating">MoodysRating</label> <input type="text"
+					id="moodysRating" th:field="*{moodysRating}" class="form-control"
+					placeholder="MoodysRating" required /> <br> <label
+					for="SandPRating">SandPRating</label> <input type="text"
 					id="sandPRating" th:field="*{sandPRating}" class="form-control"
-					placeholder="SandPRating" required /> 
-					
-					<label for="fitchRating">FitchRating</label>
-					<input type="text" id="fitchRating"
-					th:field="*{fitchRating}" class="form-control"
-					placeholder="FitchRating" required /> 
-					
-					<label for="orderNumber">Order</label>
-					<input type="number" id="fitchRating"
-					th:field="*{orderNumber}" step="1" class="form-control"
-					placeholder="Order" required /> 
-					
-					<button th:href="@{/rating/list}" class="btn btn-danger">Cancel</button>
-					<button type="submit" class="btn btn-primary">Add Rating</button>
+					placeholder="SandPRating" required /> <br> <label
+					for="fitchRating">FitchRating</label> <input type="text"
+					id="fitchRating" th:field="*{fitchRating}" class="form-control"
+					placeholder="FitchRating" required /> <br> <label
+					for="orderNumber">Order</label> <input type="number"
+					id="fitchRating" th:field="*{orderNumber}" step="1"
+					class="form-control" placeholder="Order" required /> <br> <a
+					th:href="@{/rating/list}" class="btn btn-danger">Cancel</a>
+				<button type="submit" class="btn btn-primary">Add Rating</button>
 
-		</form>
+			</form>
+		</div>
+
 	</div>
-
-</div>
 </body>
 </html>

@@ -42,10 +42,10 @@
 					<!-- TODO: Show all Bids to the table, the Action column will have Edit & Delete buttons -->
 					<tr data-th-each="bl:${bidLists}">
 						<td><span data-th-text="${bl.BidListId}"> </span></td>
-						<td><span data-th-text="${bl.accout}"> </span></td>
+						<td><span data-th-text="${bl.account}"> </span></td>
 						<td><span data-th-text="${bl.type}"> </span></td>
 						<td><span data-th-text="${bl.bidQuantity}"> </span></td>
-						<td> 
+						<td style="text-align:center"> 
 						<a th:href="@{/bidList/update/{id}(id=${bl.BidListId})}" ><span>Edit</span></a>
 						&nbsp;|&nbsp;
 						<a th:href="@{/bidList/delete/{id}(id=${bl.BidListId})}"><span>Delete</span></a>

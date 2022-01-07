@@ -43,7 +43,7 @@
 				</thead>
 				<tbody>
 					<!-- TODO: Show all RuleName to the table, the Action column will have Edit & Delete buttons -->
-					<tr data-th-each="rn:${ratings}">
+					<tr data-th-each="rn:${ruleNames}">
 						<td><span data-th-text="${rn.id}"> </span></td>
 						<td><span data-th-text="${rn.name}"> </span></td>
 						<td><span data-th-text="${rn.description}"> </span></td>
@@ -51,8 +51,8 @@
 						<td><span data-th-text="${rn.template}"> </span></td>
 						<td><span data-th-text="${rn.sqlStr}"> </span></td>
 						<td><span data-th-text="${rn.sqlPart}"> </span></td>
-						<td><a th:href="@{/rating/update/{id}(id=${rn.id})}"><span>Edit</span></a>
-							&nbsp;|&nbsp; <a th:href="@{/rating/delete/{id}(id=${rn.id})}"><span>Delete</span></a>
+						<td style="text-align:center"><a th:href="@{/ruleName/update/{id}(id=${rn.id})}"><span>Edit</span></a>
+							&nbsp;|&nbsp; <a th:href="@{/ruleName/delete/{id}(id=${rn.id})}"><span>Delete</span></a>
 						</td>
 					</tr>
 
