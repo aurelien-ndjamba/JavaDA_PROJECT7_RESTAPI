@@ -16,6 +16,10 @@ public class TradeService {
 	@Autowired
 	private TradeRepository tradeRepository;
 
+	public void setTradeRepository(TradeRepository tradeRepository) {
+		this.tradeRepository = tradeRepository;
+	}
+
 	public ArrayList<Trade> findAll() {
 		return tradeRepository.findAll();
 	}
@@ -28,8 +32,10 @@ public class TradeService {
 		return tradeRepository.findById(id).get();
 	}
 
-	public void deleteById(Integer id) {
+	public Trade deleteById(Integer id) {
+		Trade result = tradeRepository.findById(id).get();
 		tradeRepository.deleteById(id);
+		return result;
 	}
 
 }

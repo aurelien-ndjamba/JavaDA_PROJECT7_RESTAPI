@@ -92,8 +92,8 @@ CREATE TABLE Users (
   fullname VARCHAR(125),
   role VARCHAR(125),
 
-  PRIMARY KEY (Id)
+  PRIMARY KEY (Id) 
 )
 
-insert into Users(fullname, username, password, role) values("Administrator", "admin", "$2a$10$pBV8ILO/s/nao4wVnGLrh.sa/rnr5pDpbeC4E.KNzQWoy8obFZdaa", "ADMIN")
-insert into Users(fullname, username, password, role) values("User", "user", "$2a$10$pBV8ILO/s/nao4wVnGLrh.sa/rnr5pDpbeC4E.KNzQWoy8obFZdaa", "USER")
+insert into Users(id, fullname, username, password, role) values(998, "Administrator", "admin", "$2y$10$gYtnZmzCTtsfLBnR8LdH9enFYKu0MHGyGWaFh34GFmBRZ05E.Vt/u", "ADMIN")
+insert into Users(id, fullname, username, password, role) values(999, "User", "user", "$2y$10$M0ZuqDynv0Z2O5fvq3dXxuBZHeqP4Blg/RPdnR1ZnqRWkDf2KO3IW", "USER")

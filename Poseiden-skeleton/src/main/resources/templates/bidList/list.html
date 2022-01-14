@@ -17,12 +17,22 @@
 			</div>
 			<div class="col-6 text-right">
 				Logged in user: <b th:inline="text" class="user">
-					[[${#httpServletRequest.remoteUser}]] </b>
-				<form th:action="@{/app-logout}" method="POST">
+					<span th:text="${userInfo}"> </span> </b>
+<!-- 						[[${#httpServletRequest.remoteUser}]] </b> -->
+<!-- 					[[${#httpServletRequest.remoteUser}]] -->
+				<form th:action="@{/logout}" method="POST">
 					<input type="submit" value="Logout" />
 				</form>
 			</div>
 		</div>
+
+		<!-- show notification if (authentication != null) -->
+		<div th:if="${error != null}" style="color: red">
+			<p>
+				<strong><span th:text="${error}"></span></strong>
+			</p>
+		</div>
+
 		<div class="row">
 			<h2>Bid List</h2>
 		</div>
@@ -45,10 +55,10 @@
 						<td><span data-th-text="${bl.account}"> </span></td>
 						<td><span data-th-text="${bl.type}"> </span></td>
 						<td><span data-th-text="${bl.bidQuantity}"> </span></td>
-						<td style="text-align:center"> 
-						<a th:href="@{/bidList/update/{id}(id=${bl.BidListId})}" ><span>Edit</span></a>
-						&nbsp;|&nbsp;
-						<a th:href="@{/bidList/delete/{id}(id=${bl.BidListId})}"><span>Delete</span></a>
+						<td style="text-align: center"><a
+							th:href="@{/bidList/update/{id}(id=${bl.BidListId})}"><span>Edit</span></a>
+							&nbsp;|&nbsp; <a
+							th:href="@{/bidList/delete/{id}(id=${bl.BidListId})}"><span>Delete</span></a>
 						</td>
 					</tr>
 

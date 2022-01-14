@@ -9,5 +9,7 @@ import com.nnk.springboot.domain.CurvePoint;
 
 @Repository
 public interface CurvePointRepository extends JpaRepository<CurvePoint, Integer> {
+	
 	ArrayList<CurvePoint> findAll();
+	
 }

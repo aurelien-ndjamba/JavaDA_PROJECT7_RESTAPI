@@ -12,9 +12,13 @@ import com.nnk.springboot.repositories.CurvePointRepository;
 
 @Service
 public class CurvePointService {
-
+	
 	@Autowired
 	private CurvePointRepository curvePointRepository;
+
+	public void setCurvePointRepository(CurvePointRepository curvePointRepository) {
+		this.curvePointRepository = curvePointRepository;
+	}
 
 	public ArrayList<CurvePoint> findAll() {
 		return curvePointRepository.findAll();
@@ -28,8 +32,10 @@ public class CurvePointService {
 		return curvePointRepository.findById(id).get();
 	}
 
-	public void deleteById(Integer id) {
+	public CurvePoint deleteById(Integer id) {
+		CurvePoint result = curvePointRepository.findById(id).get();
 		curvePointRepository.deleteById(id);
+		return result;
 	}
 
 }

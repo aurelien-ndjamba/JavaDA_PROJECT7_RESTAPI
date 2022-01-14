@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8" />
+<title>Login</title>
+
+</head>
+<body>
+
+	<div style="text-align: center">
+		<h3>Login with Username and Password</h3>
+
+		<!-- show notification on error -->
+		<div th:if="${param.error}" style="color: red">
+			<p>
+				<strong>Invalid username and/or password.</strong>
+			</p>
+		</div>
+
+		<!-- show notification of logout -->
+		<div th:if="${param.logout}" style="color: green">
+			<p>
+				<strong>You have been logged out.</strong>
+			</p>
+		</div>
+
+		<form th:action="@{/login}" method="post" class="form-horizontal"
+			style="width: 100%">
+			<div style="flex:auto">
+			<div>
+				<label for="username">User:</label> <input type="text"
+					name="username" placeholder="username" class="form-control"
+					th:required="required" th:autofocus="autofocus" />
+			</div>
+			<div>
+				<label for="password">Password:</label> <input type="password"
+					name="password" placeholder="password"
+					class="form-control" th:required="required" />
+			</div>
+			<div>
+				<input type="submit" value="Login" />
+			</div>
+			</div>
+		</form>
+
+		<p>-------- OR --------</p>
+
+		<a href="/oauth2/authorization/github"> <img src="images/github.png"
+			alt="Connection with Github" height="42" width="42" />
+		</a>
+	</div>
+
+
+</body>
+</html>

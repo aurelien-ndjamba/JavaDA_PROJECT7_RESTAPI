@@ -14,6 +14,10 @@ public class RuleNameService {
 	@Autowired
 	private RuleNameRepository ruleNameRepository;
 
+	public void setRuleNameRepository(RuleNameRepository ruleNameRepository) {
+		this.ruleNameRepository = ruleNameRepository;
+	}
+
 	public ArrayList<RuleName> findAll() {
 		return ruleNameRepository.findAll();
 	}
@@ -26,8 +30,10 @@ public class RuleNameService {
 		return ruleNameRepository.findById(id).get();
 	}
 
-	public void deleteById(Integer id) {
+	public RuleName deleteById(Integer id) {
+		RuleName result = ruleNameRepository.findById(id).get();
 		ruleNameRepository.deleteById(id);
+		return result;
 	}
 
 }

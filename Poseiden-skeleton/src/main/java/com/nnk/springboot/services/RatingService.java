@@ -24,12 +24,18 @@ public class RatingService {
 		return ratingRepository.save(rating);
 	}
 
+	public void setRatingRepository(RatingRepository ratingRepository) {
+		this.ratingRepository = ratingRepository;
+	}
+
 	public Rating findById(Integer id) {
 		return ratingRepository.findById(id).get();
 	}
 
-	public void deleteById(Integer id) {
+	public Rating deleteById(Integer id) {
+		Rating result = ratingRepository.findById(id).get();
 		ratingRepository.deleteById(id);
+		return result;
 	}
 
 }

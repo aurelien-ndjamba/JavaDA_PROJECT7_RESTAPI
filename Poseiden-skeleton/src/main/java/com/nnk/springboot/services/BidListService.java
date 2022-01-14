@@ -16,6 +16,10 @@ public class BidListService {
 	@Autowired
 	private BidListRepository bidListRepository;
 
+	public void setBidListRepository(BidListRepository bidListRepository) {
+		this.bidListRepository = bidListRepository;
+	}
+
 	public ArrayList<BidList> findAll() {
 		return bidListRepository.findAll();
 	}
@@ -28,8 +32,10 @@ public class BidListService {
 		return bidListRepository.findById(id).get();
 	}
 
-	public void deleteById(Integer id) {
+	public BidList deleteById(Integer id) {
+		BidList result = bidListRepository.findById(id).get();
 		bidListRepository.deleteById(id);
+		return result;
 	}
 	
 }
