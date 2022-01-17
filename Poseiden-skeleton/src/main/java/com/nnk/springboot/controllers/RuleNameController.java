@@ -1,34 +1,59 @@
 package com.nnk.springboot.controllers;
 
+import java.security.Principal;
 import java.util.ArrayList;
 
 import org.jboss.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.nnk.springboot.domain.RuleName;
+import com.nnk.springboot.services.AuthorityService;
+import com.nnk.springboot.services.InfoService;
 import com.nnk.springboot.services.RuleNameService;
 
 @Controller
-public class RuleNameController {
+public class RuleNameController extends InfoService{
+	
 	private Logger logger = Logger.getLogger(this.getClass());
+	
+	@Autowired
+	private InfoService infoService;
+	@Autowired
+	private AuthorityService authorityService;
 
 	// TODO: Inject RuleName service -> OK
 	@Autowired
 	private RuleNameService ruleNameService;
-
+	
 	@RequestMapping("/ruleName/list")
-	public String home(Model model) {
-		logger.info("INFO: Afficher tous les 'ruleName' de l'application");
+	public ModelAndView home(Principal user) {
+		logger.info("INFO: Afficher tous les 'ruleNames' de l'application");
+		ModelAndView mav = new ModelAndView(); 
+		
+		if (user instanceof UsernamePasswordAuthenticationToken) {
+			if (authorityService.getUsernamePasswordLoginAuthority(user).toString().contains("ADMIN"))
+				mav.addObject("authority", authorityService.getUsernamePasswordLoginAuthority(user).toString());
+			
+			StringBuffer userInfo = new StringBuffer();
+			mav.addObject("userInfo", userInfo.append(getUsernamePasswordLoginInfo(user)).toString());
+		} else if (user instanceof OAuth2AuthenticationToken) {
+			StringBuffer userInfo = new StringBuffer();
+			mav.addObject("userInfo", userInfo.append(getOauth2LoginInfo(user)).toString());}
+		
 		// TODO: find all RuleName, add to model -> OK
 		ArrayList<RuleName> ruleNames = ruleNameService.findAll();
-		model.addAttribute("ruleNames", ruleNames);
-		return "ruleName/list";
+		mav.addObject("ruleNames", ruleNames);
+		mav.setViewName("ruleName/list");
+		return mav; //"ruleName/list";
 	}
 
 	@GetMapping("/ruleName/add")

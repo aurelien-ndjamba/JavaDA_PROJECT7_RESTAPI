@@ -22,7 +22,6 @@ public class UserDetailsServiceImpl implements UserDetailsService{
 		com.nnk.springboot.domain.User User = userService.findByUsername(email).get();
 		Collection<GrantedAuthority> authorities = new ArrayList<>(); 
 			authorities.add(new SimpleGrantedAuthority(User.getRole()));
-		System.out.println(new User(User.getUsername(), User.getPassword(), authorities));
 		return new User(User.getUsername(), User.getPassword(), authorities);
 	}
 

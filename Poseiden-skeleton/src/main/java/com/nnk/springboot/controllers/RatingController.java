@@ -1,34 +1,58 @@
 package com.nnk.springboot.controllers;
 
+import java.security.Principal;
 import java.util.ArrayList;
 
 import org.jboss.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.nnk.springboot.domain.Rating;
+import com.nnk.springboot.services.AuthorityService;
+import com.nnk.springboot.services.InfoService;
 import com.nnk.springboot.services.RatingService;
 
 @Controller
-public class RatingController {
+public class RatingController extends InfoService{
 	private Logger logger = Logger.getLogger(this.getClass());
+	
+	@Autowired
+	private InfoService infoService;
+	@Autowired
+	private AuthorityService authorityService;
 
 	// TODO: Inject Rating service
 	@Autowired
 	private RatingService ratingService;
-
+	
 	@RequestMapping("/rating/list")
-	public String home(Model model) {
-		logger.info("INFO: Afficher tous les 'rating' de l'application");
+	public ModelAndView home(Principal user) {
+		logger.info("INFO: Afficher tous les 'ratings' de l'application");
+		ModelAndView mav = new ModelAndView(); 
+		
+		if (user instanceof UsernamePasswordAuthenticationToken) {
+			if (authorityService.getUsernamePasswordLoginAuthority(user).toString().contains("ADMIN"))
+				mav.addObject("authority", authorityService.getUsernamePasswordLoginAuthority(user).toString());
+			
+			StringBuffer userInfo = new StringBuffer();
+			mav.addObject("userInfo", userInfo.append(infoService.getUsernamePasswordLoginInfo(user)).toString());
+		} else if (user instanceof OAuth2AuthenticationToken) {
+			StringBuffer userInfo = new StringBuffer();
+			mav.addObject("userInfo", userInfo.append(getOauth2LoginInfo(user)).toString());}
+		
 		// TODO: find all Rating, add to model -> OK
 		ArrayList<Rating> ratings = ratingService.findAll();
-		model.addAttribute("ratings", ratings);
-		return "rating/list";
+		mav.addObject("ratings", ratings);
+		mav.setViewName("rating/list");
+		return mav; //"rating/list";
 	}
 
 	@GetMapping("/rating/add")

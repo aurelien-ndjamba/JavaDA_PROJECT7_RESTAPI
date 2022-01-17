@@ -1,5 +1,6 @@
 package com.nnk.springboot.controllers;
 
+import javax.annotation.security.RolesAllowed;
 import javax.validation.Valid;
 
 import org.jboss.logging.Logger;
@@ -15,12 +16,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import com.nnk.springboot.domain.User;
 import com.nnk.springboot.repositories.UserRepository;
+import com.nnk.springboot.services.AuthorityService;
+import com.nnk.springboot.services.InfoService;
 
 @Controller
 public class UserController {
 
 	private Logger logger = Logger.getLogger(this.getClass());
-
+	
 	@Autowired
 	private UserRepository userRepository;
 
@@ -68,6 +71,7 @@ public class UserController {
 		}
 	}
 
+//	@RolesAllowed("ADMIN")
 	@GetMapping("/user/update/{id}")
 	public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
 		logger.info("INFO: Afficher les champs pour la mise à jour d'un user existant");

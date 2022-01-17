@@ -1,34 +1,59 @@
 package com.nnk.springboot.controllers;
 
+import java.security.Principal;
 import java.util.ArrayList;
 
 import org.jboss.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.nnk.springboot.domain.Trade;
+import com.nnk.springboot.services.AuthorityService;
+import com.nnk.springboot.services.InfoService;
 import com.nnk.springboot.services.TradeService;
 
 @Controller
-public class TradeController {
+public class TradeController extends InfoService{
+	
 	private Logger logger = Logger.getLogger(this.getClass());
+	
+	@Autowired
+	private InfoService infoService;
+	@Autowired
+	private AuthorityService authorityService;
 
 	// TODO: Inject Trade service -> OK
 	@Autowired
 	private TradeService tradeService;
-
+	
 	@RequestMapping("/trade/list")
-	public String home(Model model) {
-		logger.info("INFO: Afficher tous les 'trade' de l'application");
+	public ModelAndView home(Principal user) {
+		logger.info("INFO: Afficher tous les 'trades' de l'application");
+		ModelAndView mav = new ModelAndView(); 
+		
+		if (user instanceof UsernamePasswordAuthenticationToken) {
+			if (authorityService.getUsernamePasswordLoginAuthority(user).toString().contains("ADMIN"))
+				mav.addObject("authority", authorityService.getUsernamePasswordLoginAuthority(user).toString()); 
+			
+			StringBuffer userInfo = new StringBuffer();
+			mav.addObject("userInfo", userInfo.append(infoService.getUsernamePasswordLoginInfo(user)).toString());
+		} else if (user instanceof OAuth2AuthenticationToken) {
+			StringBuffer userInfo = new StringBuffer();
+			mav.addObject("userInfo", userInfo.append(getOauth2LoginInfo(user)).toString());}
+		
 		// TODO: find all Trade, add to model -> OK
 		ArrayList<Trade> trades = tradeService.findAll();
-		model.addAttribute("trades", trades);
-		return "trade/list";
+		mav.addObject("trades", trades);
+		mav.setViewName("trade/list");
+		return mav; //"trade/list";
 	}
 
 	@GetMapping("/trade/add")

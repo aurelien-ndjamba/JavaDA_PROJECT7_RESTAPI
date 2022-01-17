@@ -4,16 +4,14 @@ import java.security.Principal;
 import java.util.ArrayList;
 import java.util.Map;
 
+import javax.sound.midi.MidiDevice.Info;
 import javax.validation.Valid;
 
 import org.jboss.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.User;
-import org.springframework.security.oauth2.client.OAuth2AuthorizedClient;
-import org.springframework.security.oauth2.client.OAuth2AuthorizedClientService;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
-import org.springframework.security.oauth2.core.user.DefaultOAuth2User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -24,11 +22,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.nnk.springboot.domain.BidList;
+import com.nnk.springboot.services.AuthorityService;
 import com.nnk.springboot.services.BidListService;
+import com.nnk.springboot.services.InfoService;
 
 @Controller
-public class BidListController {
+public class BidListController extends InfoService {
+
 	private Logger logger = Logger.getLogger(this.getClass());
+
+	@Autowired
+	private InfoService infoService;
+	@Autowired
+	private AuthorityService authorityService;
 
 	// TODO: Inject Bid service -> OK
 	@Autowired
@@ -48,49 +54,55 @@ public class BidListController {
 //		}
 //		return userInfo.toString();
 //	}
-	
-	private StringBuffer getOauth2LoginInfo(Principal user) {
-		StringBuffer loginInfo = new StringBuffer();
-		OAuth2AuthenticationToken authToken = ((OAuth2AuthenticationToken) user);
-//		OAuth2AuthorizedClient authClient = this.authorizedClientService
-//				.loadAuthorizedClient(authToken.getAuthorizedClientRegistrationId(), authToken.getName());
-		if (authToken.isAuthenticated()) {
-			Map<String, Object> userAttributes = (authToken.getPrincipal()).getAttributes(); //(DefaultOAuth2User) 
-//			String userToken = authClient.getAccessToken().getTokenValue();
-			loginInfo.append(userAttributes.get("login"));
-		} else {
-			loginInfo.append("NA");
-		}
-		return loginInfo;
-	}
 
-	private StringBuffer getUsernamePasswordLoginInfo(Principal user) {
-		StringBuffer usernameInfo = new StringBuffer();
-		UsernamePasswordAuthenticationToken token = ((UsernamePasswordAuthenticationToken) user);
-		if (token.isAuthenticated()) {
-			User u = (User) token.getPrincipal();
-			usernameInfo.append(u.getUsername());
-		} else {
-			usernameInfo.append("NA");
-		}
-		return usernameInfo;
-	}
+//	private StringBuffer getOauth2LoginInfo(Principal user) {
+//		StringBuffer loginInfo = new StringBuffer();
+//		OAuth2AuthenticationToken authToken = ((OAuth2AuthenticationToken) user);
+////		OAuth2AuthorizedClient authClient = this.authorizedClientService
+////				.loadAuthorizedClient(authToken.getAuthorizedClientRegistrationId(), authToken.getName());
+//		if (authToken.isAuthenticated()) {
+//			Map<String, Object> userAttributes = (authToken.getPrincipal()).getAttributes(); //(DefaultOAuth2User) 
+////			String userToken = authClient.getAccessToken().getTokenValue();
+//			loginInfo.append(userAttributes.get("login"));
+//		} else {
+//			loginInfo.append("NA");
+//		}
+//		return loginInfo;
+//	}
+//
+//	private StringBuffer getUsernamePasswordLoginInfo(Principal user) {
+//		StringBuffer usernameInfo = new StringBuffer();
+//		UsernamePasswordAuthenticationToken token = ((UsernamePasswordAuthenticationToken) user);
+//		if (token.isAuthenticated()) {
+//			User u = (User) token.getPrincipal();
+//			usernameInfo.append(u.getUsername());
+//		} else {
+//			usernameInfo.append("NA");
+//		}
+//		return usernameInfo;
+//	}
 
-//	@Secured("ROLE_ADMIN")
 	@RequestMapping("/bidList/list")
-	public ModelAndView home(Model model, Principal user) {
-		logger.info("INFO: Afficher tous les 'bidlist' de l'application");
+	public ModelAndView home(Principal user) {
+		logger.info("INFO: Afficher tous les 'bidlists' de l'application");
 		// TODO: call service find all bids to show to the view -> OK
 		ModelAndView mav = new ModelAndView();
 		ArrayList<BidList> bidLists = bidListService.findAll();
 		mav.addObject("bidLists", bidLists);
 
 		if (user instanceof UsernamePasswordAuthenticationToken) {
-			StringBuffer userInfo = new StringBuffer();
-			mav.addObject("userInfo", userInfo.append(getUsernamePasswordLoginInfo(user)).toString());
+			if (authorityService.getUsernamePasswordLoginAuthority(user).toString().contains("ADMIN"))
+				mav.addObject("authority", authorityService.getUsernamePasswordLoginAuthority(user).toString());
 			
-//			mav.addObject("userInfo", getUsernamePasswordLoginInfo(user));
-//			mav.addObject("u", user); 
+			StringBuffer userInfo = new StringBuffer();
+			mav.addObject("userInfo", userInfo.append(infoService.getUsernamePasswordLoginInfo(user)).toString());
+			
+
+//			mav.addObject("userInfo", user);
+//			mav.addObject("userInfo", ((UsernamePasswordAuthenticationToken) user).getPrincipal());
+//			mav.addObject("userInfo", ((UsernamePasswordAuthenticationToken) user).getAuthorities());
+
+//			mav.addObject("userInfo", getUsernamePasswordLoginInfo(user)); 
 //			mav.addObject("un", user.getName()); // Interface
 //			mav.addObject("us", user.toString()); // Interface
 //			mav.addObject("up", ((UsernamePasswordAuthenticationToken) user).getPrincipal());
@@ -100,15 +112,16 @@ public class BidListController {
 //			mav.addObject("ud", ((UsernamePasswordAuthenticationToken) user).getDetails());
 		} else if (user instanceof OAuth2AuthenticationToken) {
 			StringBuffer userInfo = new StringBuffer();
-			mav.addObject("userInfo", userInfo.append(getOauth2LoginInfo(user)).toString());
-//			mav.addObject("u", user );
-//			mav.addObject("up", ((OAuth2AuthenticationToken) user).getPrincipal());
-//			mav.addObject("userInfo", ((OAuth2AuthenticationToken) user).getPrincipal().getAttributes().get("login").toString()); 
+			mav.addObject("userInfo", userInfo.append(infoService.getOauth2LoginInfo(user)).toString());
+
+//			mav.addObject("userInfo", user ); 
+//			mav.addObject("userInfo", ((OAuth2AuthenticationToken) user).getPrincipal());
+//			mav.addObject("userInfo", ((OAuth2AuthenticationToken) user).getAuthorities() ); 
 		}
 
 		mav.setViewName("bidList/list");
 		return mav;
-	} 
+	}
 
 	@GetMapping("/bidList/add")
 	public String addBidForm(BidList bid, Model model) {

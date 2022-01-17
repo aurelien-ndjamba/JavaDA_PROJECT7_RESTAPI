@@ -23,6 +23,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+//		// --------------------- INMEMORY AUTHENTICATION 1--------------------- OK
+//		auth.inMemoryAuthentication().withUser("user").password(bCryptPasswordEncoder.encode("C@meroun7")).roles("USER");
+//		auth.inMemoryAuthentication().withUser("admin").password(bCryptPasswordEncoder.encode("C@meroun7")).roles("ADMIN");
+ 
 		auth.userDetailsService(userDetailsService).passwordEncoder(bCryptPasswordEncoder);
 	}
 
@@ -30,21 +34,45 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 		http 
 //		.csrf().disable()   
-				.authorizeRequests()
-				.antMatchers("/css/**", "/js/**", "/images/**", "/", "/login", "/user/add", "/user/validate")
-//				.antMatchers("/secure/**").hasRole("ADMIN")
-				.permitAll()
-//				.authorizeRequests().antMatchers("/secure/**").hasRole("ADMIN").and().formLogin().loginPage("/login").and()
+		.authorizeRequests()
+				.antMatchers("/css/**", "/js/**", "/images/**", "/", "/login", "/user/add", "/user/validate") 
+				.permitAll() 
+			.and()
+		.authorizeRequests().antMatchers("/secure/**","/user/update/**").authenticated()
+		    .and()
+		.authorizeRequests().antMatchers("/secure/**","/user/update/**").hasAnyAuthority("ADMIN")
 				
-				.anyRequest().authenticated() 
-				.and().formLogin() 
+		.anyRequest().authenticated()
+			.and()
+				.formLogin() 
+				.loginProcessingUrl("/login")
 				.loginPage("/login") 
-				.defaultSuccessUrl("/admin/home").failureUrl("/login?error")
-				.and().logout().permitAll()
-//				.invalidateHttpSession(true).logoutUrl("/logout")
-				.and().oauth2Login()
+				.defaultSuccessUrl("/admin/home")
+				.failureUrl("/login?error")
+				
+			.and()
+				.oauth2Login()
 				.loginPage("/login") 
+
+			.and()	
+                .logout()
+                .logoutUrl("/logout")
+                .deleteCookies("JSESSIONID")
+                .invalidateHttpSession(true)
+                .logoutSuccessUrl("/login?logout")
+                .permitAll()
+                
+            .and()
+				.exceptionHandling()
+				.accessDeniedPage("/error")
+				
+            .and()
+                .rememberMe()
+                .rememberMeParameter("remember-me")
+                .key("myKey")
+                
 				; 
+				
 	}
  
 	@Bean
