@@ -10,13 +10,18 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.CreationTimestamp;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "trade")
+/**
+ * entité "trade"
+ */
 public class Trade {
     // TODO: Map columns in data table TRADE with corresponding java fields -> OK
 	@Id
@@ -43,10 +48,5 @@ public class Trade {
 	private String dealType;
 	private String sourceListId;
 	private String side;
-	public Trade(String account, String type) {
-		super();
-		this.account = account;
-		this.type = type;
-	}
-
+	
 }

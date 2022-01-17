@@ -21,9 +21,9 @@ import com.nnk.springboot.services.InfoService;
 import com.nnk.springboot.services.RatingService;
 
 @Controller
-public class RatingController extends InfoService{
+public class RatingController {
 	private Logger logger = Logger.getLogger(this.getClass());
-	
+
 	@Autowired
 	private InfoService infoService;
 	@Autowired
@@ -32,29 +32,42 @@ public class RatingController extends InfoService{
 	// TODO: Inject Rating service
 	@Autowired
 	private RatingService ratingService;
-	
+
+	/**
+	 * Afficher tous les 'ratings' de l'application
+	 * 
+	 * @return ModelAndView
+	 *  
+	 */
 	@RequestMapping("/rating/list")
 	public ModelAndView home(Principal user) {
 		logger.info("INFO: Afficher tous les 'ratings' de l'application");
-		ModelAndView mav = new ModelAndView(); 
-		
+		ModelAndView mav = new ModelAndView();
+
 		if (user instanceof UsernamePasswordAuthenticationToken) {
 			if (authorityService.getUsernamePasswordLoginAuthority(user).toString().contains("ADMIN"))
 				mav.addObject("authority", authorityService.getUsernamePasswordLoginAuthority(user).toString());
-			
+
 			StringBuffer userInfo = new StringBuffer();
 			mav.addObject("userInfo", userInfo.append(infoService.getUsernamePasswordLoginInfo(user)).toString());
 		} else if (user instanceof OAuth2AuthenticationToken) {
 			StringBuffer userInfo = new StringBuffer();
-			mav.addObject("userInfo", userInfo.append(getOauth2LoginInfo(user)).toString());}
-		
+			mav.addObject("userInfo", userInfo.append(infoService.getOauth2LoginInfo(user)).toString());
+		}
+
 		// TODO: find all Rating, add to model -> OK
 		ArrayList<Rating> ratings = ratingService.findAll();
 		mav.addObject("ratings", ratings);
 		mav.setViewName("rating/list");
-		return mav; //"rating/list";
+		return mav;
 	}
 
+	/**
+	 * Afficher les onglets pour ajouter un nouveau 'rating' dans l'application
+	 * 
+	 * @return String
+	 *  
+	 */
 	@GetMapping("/rating/add")
 	public String addRatingForm(Rating rating, Model model) {
 		logger.info("INFO: Afficher les onglets pour ajouter un nouveau 'rating' dans l'application");
@@ -62,6 +75,12 @@ public class RatingController extends InfoService{
 		return "rating/add";
 	}
 
+	/**
+	 * Ajouter un nouveau 'rating' dans l'application
+	 * 
+	 * @return String
+	 *  
+	 */
 	@PostMapping("/rating/validate")
 	public String validate(Rating rating) {
 		logger.info("INFO: Ajouter un nouveau 'rating' dans l'application");
@@ -70,6 +89,12 @@ public class RatingController extends InfoService{
 		return "redirect:/rating/list";
 	}
 
+	/**
+	 * Afficher les onglets pour mettre à jour un 'rating' déjà existant dans l'application
+	 * 
+	 * @return String
+	 *  
+	 */
 	@GetMapping("/rating/update/{id}")
 	public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
 		logger.info("INFO: Afficher les onglets pour mettre à jour un 'rating' déjà existant dans l'application");
@@ -79,6 +104,12 @@ public class RatingController extends InfoService{
 		return "rating/update";
 	}
 
+	/**
+	 * Mettre à jour un 'rating' déjà existant dans l'application
+	 * 
+	 * @return String
+	 *  
+	 */
 	@PostMapping("/rating/update/{id}")
 	public String updateRating(@PathVariable("id") Integer id, Rating rating) {
 		logger.info("INFO: Mettre à jour un 'rating' déjà existant dans l'application");
@@ -89,6 +120,12 @@ public class RatingController extends InfoService{
 		return "redirect:/rating/list";
 	}
 
+	/**
+	 * Supprimer un 'rating' existant dans l'application
+	 * 
+	 * @return String
+	 *  
+	 */
 	@GetMapping("/rating/delete/{id}")
 	public String deleteRating(@PathVariable("id") Integer id) {
 		logger.info("INFO: Supprimer un 'rating' existant dans l'application");

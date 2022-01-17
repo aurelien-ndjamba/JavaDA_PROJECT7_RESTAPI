@@ -8,6 +8,9 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.stereotype.Service;
 
+/**
+ * Service InfoService
+ */
 @Service
 public class InfoService {
 	

@@ -8,6 +8,9 @@ import org.springframework.stereotype.Service;
 import com.nnk.springboot.domain.RuleName;
 import com.nnk.springboot.repositories.RuleNameRepository;
 
+/**
+ * Service RuleNameService
+ */
 @Service
 public class RuleNameService {
 	

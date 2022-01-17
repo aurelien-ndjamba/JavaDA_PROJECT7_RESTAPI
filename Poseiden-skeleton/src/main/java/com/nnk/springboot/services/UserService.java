@@ -11,6 +11,9 @@ import org.springframework.stereotype.Service;
 import com.nnk.springboot.domain.User;
 import com.nnk.springboot.repositories.UserRepository;
 
+/**
+ * Service UserService
+ */
 @Service
 public class UserService {
 	

@@ -10,6 +10,9 @@ import org.springframework.stereotype.Service;
 import com.nnk.springboot.domain.Trade;
 import com.nnk.springboot.repositories.TradeRepository;
 
+/**
+ * Service TradeService
+ */
 @Service
 public class TradeService {
 	

@@ -10,6 +10,9 @@ import org.springframework.stereotype.Service;
 import com.nnk.springboot.domain.BidList;
 import com.nnk.springboot.repositories.BidListRepository;
 
+/**
+ * Service BidListService
+ */
 @Service
 public class BidListService {
 	

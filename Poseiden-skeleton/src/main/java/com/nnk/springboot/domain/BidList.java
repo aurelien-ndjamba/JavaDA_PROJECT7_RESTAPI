@@ -12,14 +12,20 @@ import javax.validation.constraints.NotBlank;
 import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.validation.annotation.Validated;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
  
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "bidlist")
 @Validated
+
+/**
+ * entité "bidlist"
+ */
 public class BidList {
     // TODO: Map columns in data table BIDLIST with corresponding java fields
 	@Id
@@ -49,13 +55,5 @@ public class BidList {
 	private String dealType;
 	private String sourceListId;
 	private String side;
-	
-	public BidList(@NotBlank(message = "Account is mandatory") String account,
-			@NotBlank(message = "Type is mandatory") String type, Double bidQuantity) {
-		super();
-		this.account = account;
-		this.type = type;
-		this.bidQuantity = bidQuantity;
-	}
 	
 }

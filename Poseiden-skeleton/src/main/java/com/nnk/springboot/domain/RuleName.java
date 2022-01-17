@@ -6,13 +6,18 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "rulename")
+/**
+ * entité "rulename"
+ */
 public class RuleName {
     // TODO: Map columns in data table RULENAME with corresponding java fields -> OK
 	@Id
@@ -25,13 +30,4 @@ public class RuleName {
 	private String sqlStr;
 	private String sqlPart;
 	
-	public RuleName(String name, String description, String json, String template, String sqlStr, String sqlPart) {
-		super();
-		this.name = name;
-		this.description = description;
-		this.json = json;
-		this.template = template;
-		this.sqlStr = sqlStr;
-		this.sqlPart = sqlPart;
-	}
 }

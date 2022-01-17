@@ -21,7 +21,7 @@ import com.nnk.springboot.services.InfoService;
 import com.nnk.springboot.services.RuleNameService;
 
 @Controller
-public class RuleNameController extends InfoService{
+public class RuleNameController{
 	
 	private Logger logger = Logger.getLogger(this.getClass());
 	
@@ -34,6 +34,12 @@ public class RuleNameController extends InfoService{
 	@Autowired
 	private RuleNameService ruleNameService;
 	
+	/**
+	 * Afficher tous les 'ruleNames' de l'application
+	 * 
+	 * @return ModelAndView
+	 *  
+	 */
 	@RequestMapping("/ruleName/list")
 	public ModelAndView home(Principal user) {
 		logger.info("INFO: Afficher tous les 'ruleNames' de l'application");
@@ -44,18 +50,24 @@ public class RuleNameController extends InfoService{
 				mav.addObject("authority", authorityService.getUsernamePasswordLoginAuthority(user).toString());
 			
 			StringBuffer userInfo = new StringBuffer();
-			mav.addObject("userInfo", userInfo.append(getUsernamePasswordLoginInfo(user)).toString());
+			mav.addObject("userInfo", userInfo.append(infoService.getUsernamePasswordLoginInfo(user)).toString());
 		} else if (user instanceof OAuth2AuthenticationToken) {
 			StringBuffer userInfo = new StringBuffer();
-			mav.addObject("userInfo", userInfo.append(getOauth2LoginInfo(user)).toString());}
+			mav.addObject("userInfo", userInfo.append(infoService.getOauth2LoginInfo(user)).toString());}
 		
 		// TODO: find all RuleName, add to model -> OK
 		ArrayList<RuleName> ruleNames = ruleNameService.findAll();
 		mav.addObject("ruleNames", ruleNames);
 		mav.setViewName("ruleName/list");
-		return mav; //"ruleName/list";
+		return mav; 
 	}
 
+	/**
+	 * Afficher les onglets pour ajouter un nouveau 'ruleName' dans l'application
+	 * 
+	 * @return String
+	 *  
+	 */
 	@GetMapping("/ruleName/add")
 	public String addRuleForm(RuleName bid, Model model) {
 		logger.info("INFO: Afficher les onglets pour ajouter un nouveau 'ruleName' dans l'application");
@@ -63,6 +75,12 @@ public class RuleNameController extends InfoService{
 		return "ruleName/add";
 	}
 
+	/**
+	 * Ajouter un nouveau 'ruleName' dans l'application
+	 * 
+	 * @return String
+	 *  
+	 */
 	@PostMapping("/ruleName/validate")
 	public String validate(RuleName ruleName) {
 		logger.info("INFO: Ajouter un nouveau 'ruleName' dans l'application");
@@ -72,6 +90,12 @@ public class RuleNameController extends InfoService{
 		return "redirect:/ruleName/list";
 	}
 
+	/**
+	 * Afficher les onglets pour mettre à jour un 'ruleName' déjà existant dans l'application
+	 * 
+	 * @return String
+	 *  
+	 */
 	@GetMapping("/ruleName/update/{id}")
 	public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
 		logger.info("INFO: Afficher les onglets pour mettre à jour un 'ruleName' déjà existant dans l'application");
@@ -81,6 +105,12 @@ public class RuleNameController extends InfoService{
 		return "ruleName/update";
 	}
 
+	/**
+	 * Mettre à jour un 'ruleName' déjà existant dans l'application
+	 * 
+	 * @return String
+	 *  
+	 */
 	@PostMapping("/ruleName/update/{id}")
 	public String updateRuleName(@PathVariable("id") Integer id, RuleName ruleName) {
 		logger.info("INFO: Mettre à jour un 'ruleName' déjà existant dans l'application");
@@ -91,6 +121,12 @@ public class RuleNameController extends InfoService{
 		return "redirect:/ruleName/list";
 	}
 
+	/**
+	 * Supprimer un 'ruleName' existant dans l'application
+	 * 
+	 * @return String
+	 *  
+	 */
 	@GetMapping("/ruleName/delete/{id}")
 	public String deleteRuleName(@PathVariable("id") Integer id, Model model) {
 		logger.info("INFO: Supprimer un 'ruleName' existant dans l'application");

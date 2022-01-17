@@ -21,7 +21,7 @@ import com.nnk.springboot.services.InfoService;
 import com.nnk.springboot.services.TradeService;
 
 @Controller
-public class TradeController extends InfoService{
+public class TradeController{
 	
 	private Logger logger = Logger.getLogger(this.getClass());
 	
@@ -34,6 +34,12 @@ public class TradeController extends InfoService{
 	@Autowired
 	private TradeService tradeService;
 	
+	/**
+	 * Afficher tous les 'trades' de l'application
+	 * 
+	 * @return ModelAndView
+	 *  
+	 */
 	@RequestMapping("/trade/list")
 	public ModelAndView home(Principal user) {
 		logger.info("INFO: Afficher tous les 'trades' de l'application");
@@ -47,15 +53,21 @@ public class TradeController extends InfoService{
 			mav.addObject("userInfo", userInfo.append(infoService.getUsernamePasswordLoginInfo(user)).toString());
 		} else if (user instanceof OAuth2AuthenticationToken) {
 			StringBuffer userInfo = new StringBuffer();
-			mav.addObject("userInfo", userInfo.append(getOauth2LoginInfo(user)).toString());}
+			mav.addObject("userInfo", userInfo.append(infoService.getOauth2LoginInfo(user)).toString());}
 		
 		// TODO: find all Trade, add to model -> OK
 		ArrayList<Trade> trades = tradeService.findAll();
 		mav.addObject("trades", trades);
 		mav.setViewName("trade/list");
-		return mav; //"trade/list";
+		return mav; 
 	}
 
+	/**
+	 * Afficher les onglets pour ajouter un nouveau 'trade' dans l'application
+	 * 
+	 * @return String
+	 *  
+	 */
 	@GetMapping("/trade/add")
 	public String addUser(Trade bid, Model model) {
 		logger.info("INFO: Afficher les onglets pour ajouter un nouveau 'trade' dans l'application");
@@ -63,6 +75,12 @@ public class TradeController extends InfoService{
 		return "trade/add";
 	}
 
+	/**
+	 * Ajouter un nouveau 'trade' dans l'application
+	 * 
+	 * @return String
+	 *  
+	 */
 	@PostMapping("/trade/validate")
 	public String validate(Trade trade) {
 		logger.info("INFO: Ajouter un nouveau 'trade' dans l'application");
@@ -71,6 +89,12 @@ public class TradeController extends InfoService{
 		return "redirect:/trade/list";
 	}
 
+	/**
+	 * Afficher les onglets pour mettre à jour un 'ruleName' déjà existant dans l'application
+	 * 
+	 * @return String
+	 *  
+	 */
 	@GetMapping("/trade/update/{id}")
 	public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
 		logger.info("INFO: Afficher les onglets pour mettre à jour un 'ruleName' déjà existant dans l'application");
@@ -80,6 +104,12 @@ public class TradeController extends InfoService{
 		return "trade/update";
 	}
 
+	/**
+	 * Mettre à jour un 'trade' déjà existant dans l'application
+	 * 
+	 * @return String
+	 *  
+	 */
 	@PostMapping("/trade/update/{id}")
 	public String updateTrade(@PathVariable("id") Integer id, Trade trade) {
 		logger.info("INFO: Mettre à jour un 'trade' déjà existant dans l'application");
@@ -90,6 +120,12 @@ public class TradeController extends InfoService{
 		return "redirect:/trade/list";
 	}
 
+	/**
+	 * Supprimer un 'trade' existant dans l'application
+	 * 
+	 * @return String
+	 *  
+	 */
 	@GetMapping("/trade/delete/{id}")
 	public String deleteTrade(@PathVariable("id") Integer id, Model model) {
 		logger.info("INFO: Supprimer un 'trade' existant dans l'application");

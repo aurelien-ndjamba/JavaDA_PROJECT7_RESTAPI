@@ -11,13 +11,18 @@ import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.CreationTimestamp;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "curvepoint")
+/**
+ * entité "curvepoint"
+ */
 public class CurvePoint {
     // TODO: Map columns in data table CURVEPOINT with corresponding java fields
 	@Id
@@ -31,10 +36,4 @@ public class CurvePoint {
 	@CreationTimestamp
 	private Timestamp creationDate;
 	
-	public CurvePoint(@NotNull(message = "must not be null") Integer curveId, Double term, Double value) {
-		super();
-		this.curveId = curveId;
-		this.term = term;
-		this.value = value;
-	}
 }

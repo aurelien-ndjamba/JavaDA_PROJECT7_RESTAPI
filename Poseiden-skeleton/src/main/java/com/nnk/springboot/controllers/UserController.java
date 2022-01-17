@@ -1,6 +1,5 @@
 package com.nnk.springboot.controllers;
 
-import javax.annotation.security.RolesAllowed;
 import javax.validation.Valid;
 
 import org.jboss.logging.Logger;
@@ -16,8 +15,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import com.nnk.springboot.domain.User;
 import com.nnk.springboot.repositories.UserRepository;
-import com.nnk.springboot.services.AuthorityService;
-import com.nnk.springboot.services.InfoService;
 
 @Controller
 public class UserController {
@@ -27,12 +24,12 @@ public class UserController {
 	@Autowired
 	private UserRepository userRepository;
 
-//	@RequestMapping("/user/list")
-//	public String home(Model model) {
-//		model.addAttribute("users", userRepository.findAll());
-//		return "user/list";
-//	}
-
+	/**
+	 * Afficher les champs pour la création d'un nouvel user
+	 * 
+	 * @return String
+	 *  
+	 */
 	@GetMapping("/user/add")
 	public String addUser( Authentication authentication, Model model) {
 		logger.info("INFO: Afficher les champs pour la création d'un nouvel user");
@@ -40,6 +37,12 @@ public class UserController {
 		return "user/add";
 	}
 
+	/**
+	 * Création reussie d'un nouvel user
+	 * 
+	 * @return String
+	 *  
+	 */
 	@PostMapping("/user/validate")
 	public String validate(@Valid User user, BindingResult result, Model model, Authentication authentication) {
 		if (result.hasErrors()) {
@@ -71,7 +74,12 @@ public class UserController {
 		}
 	}
 
-//	@RolesAllowed("ADMIN")
+	/**
+	 * Afficher les champs pour la mise à jour d'un user existant
+	 * 
+	 * @return String
+	 *  
+	 */
 	@GetMapping("/user/update/{id}")
 	public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
 		logger.info("INFO: Afficher les champs pour la mise à jour d'un user existant");
@@ -82,6 +90,12 @@ public class UserController {
 		return "user/update";
 	}
 
+	/**
+	 * Mise à jour d'un user existant
+	 * 
+	 * @return String
+	 *  
+	 */
 	@PostMapping("/user/update/{id}")
 	public String updateUser(@PathVariable("id") Integer id, @Valid User user, BindingResult result, Model model) {
 		if (result.hasErrors()) {
@@ -98,6 +112,12 @@ public class UserController {
 		return "redirect:/secure/article-details";
 	}
 
+	/**
+	 * Suppression d'un user existant
+	 * 
+	 * @return String
+	 *  
+	 */
 	@GetMapping("/user/delete/{id}")
 	public String deleteUser(@PathVariable("id") Integer id, Model model) {
 		logger.info("INFO: Suppression reussie d'un user existant");

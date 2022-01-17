@@ -8,6 +8,9 @@ import org.springframework.stereotype.Repository;
 
 import com.nnk.springboot.domain.User;
  
+/**
+ * repository "UserRepository"
+ */
 @Repository
 public interface UserRepository extends JpaRepository<User, Integer>{ //, JpaSpecificationExecutor<User> 
 	ArrayList<User> findAll();
