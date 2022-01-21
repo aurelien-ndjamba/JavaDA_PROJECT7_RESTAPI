@@ -14,12 +14,13 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import com.nnk.springboot.domain.CurvePoint;
 import com.nnk.springboot.repositories.CurvePointRepository;
+import com.nnk.springboot.services.impl.CurvePointServiceImpl;
 
 @SpringBootTest
 public class CurvePointServiceTest {
 	
 	@Autowired
-	private CurvePointService curvePointService;
+	private CurvePointServiceImpl curvePointService;
 	
 	@Mock
 	private CurvePointRepository curvePointRepositoryMock;

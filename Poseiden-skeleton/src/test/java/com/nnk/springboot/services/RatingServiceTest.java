@@ -14,12 +14,13 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import com.nnk.springboot.domain.Rating;
 import com.nnk.springboot.repositories.RatingRepository;
+import com.nnk.springboot.services.impl.RatingServiceImpl;
 
 @SpringBootTest
 public class RatingServiceTest {
 	
 	@Autowired
-	private RatingService ratingService;
+	private RatingServiceImpl ratingService;
 	
 	@Mock
 	private RatingRepository ratingRepositoryMock;

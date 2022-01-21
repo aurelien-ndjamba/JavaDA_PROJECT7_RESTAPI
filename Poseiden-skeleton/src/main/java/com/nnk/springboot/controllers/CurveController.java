@@ -1,7 +1,7 @@
 package com.nnk.springboot.controllers;
 
 import java.security.Principal;
-import java.util.ArrayList;
+import java.util.List;
 
 import javax.validation.Valid;
 
@@ -19,9 +19,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.nnk.springboot.domain.CurvePoint;
-import com.nnk.springboot.services.AuthorityService;
-import com.nnk.springboot.services.CurvePointService;
-import com.nnk.springboot.services.InfoService;
+import com.nnk.springboot.services.IAuthorityService;
+import com.nnk.springboot.services.ICurvePointService;
+import com.nnk.springboot.services.IInfoService;
 
 @Controller
 public class CurveController {
@@ -29,13 +29,14 @@ public class CurveController {
 	private Logger logger = Logger.getLogger(this.getClass());
 
 	@Autowired
-	private InfoService infoService;
+	private IInfoService infoService;
 	@Autowired
-	private AuthorityService authorityService;
+	private IAuthorityService authorityService;
 
 	// TODO: Inject Curve Point service -> OK
+	
 	@Autowired
-	private CurvePointService curvePointService;
+	private ICurvePointService curvePointService;
 
 	/**
 	 * Afficher tous les 'curvePoints' de l'application
@@ -60,10 +61,10 @@ public class CurveController {
 		}
 
 		// TODO: find all Curve Point, add to model -> OK
-		ArrayList<CurvePoint> curvePoints = curvePointService.findAll();
+		List<CurvePoint> curvePoints = curvePointService.findAll();
 		mav.addObject("curvePoints", curvePoints);
 		mav.setViewName("curvePoint/list");
-		return mav; // "curvePoint/list";
+		return mav; 
 	}
 
 	/**
@@ -73,7 +74,7 @@ public class CurveController {
 	 *  
 	 */
 	@GetMapping("/curvePoint/add")
-	public String addBidForm(CurvePoint bid, Model model) {
+	public String addCurvePointForm(CurvePoint bid, Model model) {
 		logger.info("INFO: Afficher les onglets pour ajouter un nouveau 'curvePoint' dans l'application");
 		model.addAttribute("curvePoint", new CurvePoint());
 		return "curvePoint/add";
@@ -92,7 +93,7 @@ public class CurveController {
 		if (result.hasErrors()) {
 			if (result.getFieldError("curveId") != null)
 				model.addAttribute("exCurveId", result.getFieldError("curveId").getDefaultMessage());
-			return "/curvePoint/add";
+			return "curvePoint/add";
 		} else {
 			curvePointService.save(curvePoint);
 			return "redirect:/curvePoint/list";
@@ -121,7 +122,7 @@ public class CurveController {
 	 *  
 	 */
 	@PostMapping("/curvePoint/update/{id}")
-	public String updateBid(@PathVariable("id") Integer id, @Valid CurvePoint curvePoint, BindingResult result,
+	public String updateCurvePoint(@PathVariable("id") Integer id, @Valid CurvePoint curvePoint, BindingResult result,
 			Model model) {
 		logger.info("INFO: Mettre à jour un 'curvePoint' déjà existant dans l'application");
 		// TODO: check required fields, if valid call service to update Curve and return
@@ -138,16 +139,27 @@ public class CurveController {
 	}
 
 	/**
-	 * Supprimer un 'curvePoint' existant dans l'application
 	 * 
 	 * @return String
 	 *  
 	 */
 	@GetMapping("/curvePoint/delete/{id}")
-	public String deleteBid(@PathVariable("id") Integer id) {
+	public String deleteCurvePoint(@PathVariable("id") Integer id) {
 		logger.info("INFO: Supprimer un 'curvePoint' existant dans l'application");
 		// TODO: Find Curve by Id and delete the Curve, return to Curve list -> OK
 		curvePointService.deleteById(id);
 		return "redirect:/curvePoint/list";
+	}
+
+	public void setInfoService(IInfoService infoService) {
+		this.infoService = infoService;
+	}
+
+	public void setCurvePointService(ICurvePointService curvePointService) {
+		this.curvePointService = curvePointService;
+	}
+
+	public void setAuthorityService(IAuthorityService authorityService) {
+		this.authorityService = authorityService;
 	}
 }

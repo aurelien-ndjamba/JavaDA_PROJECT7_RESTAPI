@@ -1,7 +1,7 @@
 package com.nnk.springboot.controllers;
 
 import java.security.Principal;
-import java.util.ArrayList;
+import java.util.List;
 
 import org.jboss.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,60 +16,61 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.nnk.springboot.domain.Trade;
-import com.nnk.springboot.services.AuthorityService;
-import com.nnk.springboot.services.InfoService;
-import com.nnk.springboot.services.TradeService;
+import com.nnk.springboot.services.IAuthorityService;
+import com.nnk.springboot.services.IInfoService;
+import com.nnk.springboot.services.ITradeService;
 
 @Controller
-public class TradeController{
-	
+public class TradeController {
+
 	private Logger logger = Logger.getLogger(this.getClass());
-	
+
 	@Autowired
-	private InfoService infoService;
+	private IInfoService infoService;
 	@Autowired
-	private AuthorityService authorityService;
+	private IAuthorityService authorityService;
 
 	// TODO: Inject Trade service -> OK
 	@Autowired
-	private TradeService tradeService;
-	
+	private ITradeService tradeService;
+
 	/**
 	 * Afficher tous les 'trades' de l'application
 	 * 
 	 * @return ModelAndView
-	 *  
+	 * 
 	 */
 	@RequestMapping("/trade/list")
 	public ModelAndView home(Principal user) {
 		logger.info("INFO: Afficher tous les 'trades' de l'application");
-		ModelAndView mav = new ModelAndView(); 
-		
+		ModelAndView mav = new ModelAndView();
+
 		if (user instanceof UsernamePasswordAuthenticationToken) {
 			if (authorityService.getUsernamePasswordLoginAuthority(user).toString().contains("ADMIN"))
-				mav.addObject("authority", authorityService.getUsernamePasswordLoginAuthority(user).toString()); 
-			
+				mav.addObject("authority", authorityService.getUsernamePasswordLoginAuthority(user).toString());
+
 			StringBuffer userInfo = new StringBuffer();
 			mav.addObject("userInfo", userInfo.append(infoService.getUsernamePasswordLoginInfo(user)).toString());
 		} else if (user instanceof OAuth2AuthenticationToken) {
 			StringBuffer userInfo = new StringBuffer();
-			mav.addObject("userInfo", userInfo.append(infoService.getOauth2LoginInfo(user)).toString());}
-		
+			mav.addObject("userInfo", userInfo.append(infoService.getOauth2LoginInfo(user)).toString());
+		}
+
 		// TODO: find all Trade, add to model -> OK
-		ArrayList<Trade> trades = tradeService.findAll();
+		List<Trade> trades = tradeService.findAll();
 		mav.addObject("trades", trades);
 		mav.setViewName("trade/list");
-		return mav; 
+		return mav;
 	}
 
 	/**
 	 * Afficher les onglets pour ajouter un nouveau 'trade' dans l'application
 	 * 
 	 * @return String
-	 *  
+	 * 
 	 */
 	@GetMapping("/trade/add")
-	public String addUser(Trade bid, Model model) {
+	public String addTradeForm(Trade bid, Model model) {
 		logger.info("INFO: Afficher les onglets pour ajouter un nouveau 'trade' dans l'application");
 		model.addAttribute("trade", new Trade());
 		return "trade/add";
@@ -79,7 +80,7 @@ public class TradeController{
 	 * Ajouter un nouveau 'trade' dans l'application
 	 * 
 	 * @return String
-	 *  
+	 * 
 	 */
 	@PostMapping("/trade/validate")
 	public String validate(Trade trade) {
@@ -90,10 +91,11 @@ public class TradeController{
 	}
 
 	/**
-	 * Afficher les onglets pour mettre à jour un 'ruleName' déjà existant dans l'application
+	 * Afficher les onglets pour mettre à jour un 'ruleName' déjà existant dans
+	 * l'application
 	 * 
 	 * @return String
-	 *  
+	 * 
 	 */
 	@GetMapping("/trade/update/{id}")
 	public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
@@ -108,7 +110,7 @@ public class TradeController{
 	 * Mettre à jour un 'trade' déjà existant dans l'application
 	 * 
 	 * @return String
-	 *  
+	 * 
 	 */
 	@PostMapping("/trade/update/{id}")
 	public String updateTrade(@PathVariable("id") Integer id, Trade trade) {
@@ -124,7 +126,7 @@ public class TradeController{
 	 * Supprimer un 'trade' existant dans l'application
 	 * 
 	 * @return String
-	 *  
+	 * 
 	 */
 	@GetMapping("/trade/delete/{id}")
 	public String deleteTrade(@PathVariable("id") Integer id, Model model) {
@@ -132,5 +134,17 @@ public class TradeController{
 		// TODO: Find Trade by Id and delete the Trade, return to Trade list -> OK
 		tradeService.deleteById(id);
 		return "redirect:/trade/list";
+	}
+
+	public void setTradeService(ITradeService tradeService) {
+		this.tradeService = tradeService;
+	}
+
+	public void setAuthorityService(IAuthorityService authorityService) {
+		this.authorityService = authorityService;
+	}
+
+	public void setInfoService(IInfoService infoService) {
+		this.infoService = infoService;
 	}
 }

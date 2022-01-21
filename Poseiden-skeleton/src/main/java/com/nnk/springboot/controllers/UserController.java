@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.nnk.springboot.domain.User;
-import com.nnk.springboot.repositories.UserRepository;
+import com.nnk.springboot.services.IUserService;
 
 @Controller
 public class UserController {
@@ -22,7 +22,7 @@ public class UserController {
 	private Logger logger = Logger.getLogger(this.getClass());
 	
 	@Autowired
-	private UserRepository userRepository;
+	private IUserService userService;
 
 	/**
 	 * Afficher les champs pour la création d'un nouvel user
@@ -31,7 +31,7 @@ public class UserController {
 	 *  
 	 */
 	@GetMapping("/user/add")
-	public String addUser( Authentication authentication, Model model) {
+	public String addUserForm( Authentication authentication, Model model) {
 		logger.info("INFO: Afficher les champs pour la création d'un nouvel user");
 		model.addAttribute("user", new User());
 		return "user/add";
@@ -60,7 +60,7 @@ public class UserController {
 			logger.info("INFO: Création reussie d'un nouvel user");
 			BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 			user.setPassword(encoder.encode(user.getPassword()));
-			userRepository.save(user);
+			userService.save(user);
 			model.addAttribute("newUserWithNoError",
 					"Vous pouvez maintenant vous connecter avec votre username et votre mot de passe.");
 			return "/home";
@@ -68,7 +68,7 @@ public class UserController {
 			logger.info("INFO: Création reussie d'un nouvel user");
 			BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 			user.setPassword(encoder.encode(user.getPassword()));
-			userRepository.save(user);
+			userService.save(user);
 			model.addAttribute("newUserWithNoError", "Nouvel utilisateur ajouté avec succès dans la base de donnée.");
 			return "redirect:/secure/article-details";
 		}
@@ -83,8 +83,7 @@ public class UserController {
 	@GetMapping("/user/update/{id}")
 	public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
 		logger.info("INFO: Afficher les champs pour la mise à jour d'un user existant");
-		User user = userRepository.findById(id)
-				.orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
+		User user = userService.findById(id);
 		user.setPassword("");
 		model.addAttribute("user", user);
 		return "user/update";
@@ -107,8 +106,8 @@ public class UserController {
 		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 		user.setPassword(encoder.encode(user.getPassword()));
 		user.setId(id);
-		userRepository.save(user);
-		model.addAttribute("users", userRepository.findAll());
+		userService.save(user);
+		model.addAttribute("users", userService.findAll());
 		return "redirect:/secure/article-details";
 	}
 
@@ -121,10 +120,13 @@ public class UserController {
 	@GetMapping("/user/delete/{id}")
 	public String deleteUser(@PathVariable("id") Integer id, Model model) {
 		logger.info("INFO: Suppression reussie d'un user existant");
-		User user = userRepository.findById(id)
-				.orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
-		userRepository.delete(user);
-		model.addAttribute("users", userRepository.findAll());
+		User user = userService.findById(id);
+		userService.delete(user);
+		model.addAttribute("users", userService.findAll());
 		return "redirect:/secure/article-details";
+	}
+
+	public void setUserService(IUserService userService) {
+		this.userService = userService;
 	}
 }

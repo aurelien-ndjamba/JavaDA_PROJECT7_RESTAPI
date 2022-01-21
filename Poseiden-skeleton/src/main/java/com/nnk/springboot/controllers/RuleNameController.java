@@ -1,7 +1,7 @@
 package com.nnk.springboot.controllers;
 
 import java.security.Principal;
-import java.util.ArrayList;
+import java.util.List;
 
 import org.jboss.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,60 +16,61 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.nnk.springboot.domain.RuleName;
-import com.nnk.springboot.services.AuthorityService;
-import com.nnk.springboot.services.InfoService;
-import com.nnk.springboot.services.RuleNameService;
+import com.nnk.springboot.services.IAuthorityService;
+import com.nnk.springboot.services.IInfoService;
+import com.nnk.springboot.services.IRuleNameService;
 
 @Controller
-public class RuleNameController{
-	
+public class RuleNameController {
+
 	private Logger logger = Logger.getLogger(this.getClass());
-	
+
 	@Autowired
-	private InfoService infoService;
+	private IInfoService infoService;
 	@Autowired
-	private AuthorityService authorityService;
+	private IAuthorityService authorityService;
 
 	// TODO: Inject RuleName service -> OK
 	@Autowired
-	private RuleNameService ruleNameService;
-	
+	private IRuleNameService ruleNameService;
+
 	/**
 	 * Afficher tous les 'ruleNames' de l'application
 	 * 
 	 * @return ModelAndView
-	 *  
+	 * 
 	 */
 	@RequestMapping("/ruleName/list")
 	public ModelAndView home(Principal user) {
 		logger.info("INFO: Afficher tous les 'ruleNames' de l'application");
-		ModelAndView mav = new ModelAndView(); 
-		
+		ModelAndView mav = new ModelAndView();
+
 		if (user instanceof UsernamePasswordAuthenticationToken) {
 			if (authorityService.getUsernamePasswordLoginAuthority(user).toString().contains("ADMIN"))
 				mav.addObject("authority", authorityService.getUsernamePasswordLoginAuthority(user).toString());
-			
+
 			StringBuffer userInfo = new StringBuffer();
 			mav.addObject("userInfo", userInfo.append(infoService.getUsernamePasswordLoginInfo(user)).toString());
 		} else if (user instanceof OAuth2AuthenticationToken) {
 			StringBuffer userInfo = new StringBuffer();
-			mav.addObject("userInfo", userInfo.append(infoService.getOauth2LoginInfo(user)).toString());}
-		
+			mav.addObject("userInfo", userInfo.append(infoService.getOauth2LoginInfo(user)).toString());
+		}
+
 		// TODO: find all RuleName, add to model -> OK
-		ArrayList<RuleName> ruleNames = ruleNameService.findAll();
+		List<RuleName> ruleNames = ruleNameService.findAll();
 		mav.addObject("ruleNames", ruleNames);
 		mav.setViewName("ruleName/list");
-		return mav; 
+		return mav;
 	}
 
 	/**
 	 * Afficher les onglets pour ajouter un nouveau 'ruleName' dans l'application
 	 * 
 	 * @return String
-	 *  
+	 * 
 	 */
 	@GetMapping("/ruleName/add")
-	public String addRuleForm(RuleName bid, Model model) {
+	public String addRuleForm(RuleName ruleName, Model model) {
 		logger.info("INFO: Afficher les onglets pour ajouter un nouveau 'ruleName' dans l'application");
 		model.addAttribute("ruleName", new RuleName());
 		return "ruleName/add";
@@ -79,7 +80,7 @@ public class RuleNameController{
 	 * Ajouter un nouveau 'ruleName' dans l'application
 	 * 
 	 * @return String
-	 *  
+	 * 
 	 */
 	@PostMapping("/ruleName/validate")
 	public String validate(RuleName ruleName) {
@@ -91,10 +92,11 @@ public class RuleNameController{
 	}
 
 	/**
-	 * Afficher les onglets pour mettre à jour un 'ruleName' déjà existant dans l'application
+	 * Afficher les onglets pour mettre à jour un 'ruleName' déjà existant dans
+	 * l'application
 	 * 
 	 * @return String
-	 *  
+	 * 
 	 */
 	@GetMapping("/ruleName/update/{id}")
 	public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
@@ -109,7 +111,7 @@ public class RuleNameController{
 	 * Mettre à jour un 'ruleName' déjà existant dans l'application
 	 * 
 	 * @return String
-	 *  
+	 * 
 	 */
 	@PostMapping("/ruleName/update/{id}")
 	public String updateRuleName(@PathVariable("id") Integer id, RuleName ruleName) {
@@ -125,7 +127,7 @@ public class RuleNameController{
 	 * Supprimer un 'ruleName' existant dans l'application
 	 * 
 	 * @return String
-	 *  
+	 * 
 	 */
 	@GetMapping("/ruleName/delete/{id}")
 	public String deleteRuleName(@PathVariable("id") Integer id, Model model) {
@@ -133,5 +135,17 @@ public class RuleNameController{
 		// TODO: Find RuleName by Id and delete the RuleName, return to Rule list -> OK
 		ruleNameService.deleteById(id);
 		return "redirect:/ruleName/list";
+	}
+
+	public void setRuleNameService(IRuleNameService ruleNameService) {
+		this.ruleNameService = ruleNameService;
+	}
+
+	public void setInfoService(IInfoService infoService) {
+		this.infoService = infoService;
+	}
+
+	public void setAuthorityService(IAuthorityService authorityService) {
+		this.authorityService = authorityService;
 	}
 }

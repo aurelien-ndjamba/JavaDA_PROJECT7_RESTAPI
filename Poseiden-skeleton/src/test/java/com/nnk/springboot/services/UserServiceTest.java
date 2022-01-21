@@ -14,12 +14,13 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import com.nnk.springboot.domain.User;
 import com.nnk.springboot.repositories.UserRepository;
+import com.nnk.springboot.services.impl.UserServiceImpl;
 
 @SpringBootTest
 public class UserServiceTest {
 
 	@Autowired
-	private UserService userService;
+	private UserServiceImpl userService;
 
 	@Mock
 	private UserRepository userRepositoryMock;
@@ -83,6 +84,21 @@ public class UserServiceTest {
 
 		// THEN
 		assertThat(userService.deleteById(77).getFullname()).isEqualTo("toto");
+	}
+	
+	@Test
+	public void testFindByUsername() throws Exception {
+		// GIVEN
+		User u1 = new User();
+		u1.setFullname("toto");
+		Optional<User> uo = Optional.of(u1);
+
+		// WHEN
+		when(userRepositoryMock.findByUsername(any(String.class))).thenReturn(uo);
+		userService.setUserRepository(userRepositoryMock);
+
+		// THEN
+		assertThat(userService.findByUsername("toto")).isEqualTo(uo);
 	}
 
 }

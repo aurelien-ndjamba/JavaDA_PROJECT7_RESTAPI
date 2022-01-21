@@ -36,7 +36,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			.and()
 		.authorizeRequests().antMatchers("/secure/**","/user/update/**").authenticated()
 		    .and()
-		.authorizeRequests().antMatchers("/secure/**","/user/update/**").hasAnyAuthority("ADMIN")
+		.authorizeRequests().antMatchers("/secure/**","/user/update/**").hasAuthority("ADMIN")
 				
 		.anyRequest().authenticated()
 			.and()

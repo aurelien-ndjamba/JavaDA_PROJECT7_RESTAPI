@@ -1,7 +1,7 @@
 package com.nnk.springboot.controllers;
 
 import java.security.Principal;
-import java.util.ArrayList;
+import java.util.List;
 
 import javax.validation.Valid;
 
@@ -19,23 +19,23 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.nnk.springboot.domain.BidList;
-import com.nnk.springboot.services.AuthorityService;
-import com.nnk.springboot.services.BidListService;
-import com.nnk.springboot.services.InfoService;
+import com.nnk.springboot.services.IAuthorityService;
+import com.nnk.springboot.services.IBidListService;
+import com.nnk.springboot.services.IInfoService;
 
 @Controller
-public class BidListController extends InfoService {
+public class BidListController {
 
 	private Logger logger = Logger.getLogger(this.getClass());
 
 	@Autowired
-	private InfoService infoService;
+	private IInfoService infoService;
 	@Autowired
-	private AuthorityService authorityService;
+	private IAuthorityService authorityService;
 
 	// TODO: Inject Bid service -> OK
 	@Autowired
-	private BidListService bidListService;
+	private IBidListService bidListService;
 
 	/**
 	 * Afficher tous les 'bidlists' de l'application
@@ -61,7 +61,7 @@ public class BidListController extends InfoService {
 
 		}
 		// TODO: call service find all bids to show to the view -> OK
-		ArrayList<BidList> bidLists = bidListService.findAll();
+		List<BidList> bidLists = bidListService.findAll();
 		mav.addObject("bidLists", bidLists);
 		mav.setViewName("bidList/list");
 
@@ -154,5 +154,17 @@ public class BidListController extends InfoService {
 		// TODO: Find Bid by Id and delete the bid, return to Bid list -> OK
 		bidListService.deleteById(id);
 		return "redirect:/bidList/list";
+	}
+
+	public void setAuthorityService(IAuthorityService authorityService) {
+		this.authorityService = authorityService;
+	}
+
+	public void setInfoService(IInfoService infoService) {
+		this.infoService = infoService;
+	}
+
+	public void setBidListService(IBidListService bidListService) {
+		this.bidListService = bidListService;
 	}
 }

@@ -1,7 +1,7 @@
 package com.nnk.springboot.controllers;
 
 import java.security.Principal;
-import java.util.ArrayList;
+import java.util.List;
 
 import org.jboss.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,22 +16,22 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.nnk.springboot.domain.Rating;
-import com.nnk.springboot.services.AuthorityService;
-import com.nnk.springboot.services.InfoService;
-import com.nnk.springboot.services.RatingService;
+import com.nnk.springboot.services.IAuthorityService;
+import com.nnk.springboot.services.IInfoService;
+import com.nnk.springboot.services.IRatingService;
 
 @Controller
 public class RatingController {
 	private Logger logger = Logger.getLogger(this.getClass());
 
 	@Autowired
-	private InfoService infoService;
+	private IInfoService infoService;
 	@Autowired
-	private AuthorityService authorityService;
+	private IAuthorityService authorityService;
 
 	// TODO: Inject Rating service
 	@Autowired
-	private RatingService ratingService;
+	private IRatingService ratingService;
 
 	/**
 	 * Afficher tous les 'ratings' de l'application
@@ -56,7 +56,7 @@ public class RatingController {
 		}
 
 		// TODO: find all Rating, add to model -> OK
-		ArrayList<Rating> ratings = ratingService.findAll();
+		List<Rating> ratings = ratingService.findAll();
 		mav.addObject("ratings", ratings);
 		mav.setViewName("rating/list");
 		return mav;
@@ -87,6 +87,10 @@ public class RatingController {
 		// TODO: check data valid and save to db, after saving return Rating list -> OK
 		ratingService.save(rating);
 		return "redirect:/rating/list";
+	}
+
+	public void setRatingService(IRatingService ratingService) {
+		this.ratingService = ratingService;
 	}
 
 	/**
@@ -132,5 +136,13 @@ public class RatingController {
 		// TODO: Find Rating by Id and delete the Rating, return to Rating list -> OK
 		ratingService.deleteById(id);
 		return "redirect:/rating/list";
+	}
+
+	public void setAuthorityService(IAuthorityService authorityService) {
+		this.authorityService = authorityService;
+	}
+
+	public void setInfoService(IInfoService infoService) {
+		this.infoService = infoService;
 	}
 }

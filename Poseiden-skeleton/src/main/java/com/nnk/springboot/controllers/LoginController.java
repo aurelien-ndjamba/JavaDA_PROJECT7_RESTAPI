@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.nnk.springboot.repositories.UserRepository;
-import com.nnk.springboot.services.AuthorityService;
-import com.nnk.springboot.services.InfoService;
+import com.nnk.springboot.services.IAuthorityService;
+import com.nnk.springboot.services.IInfoService;
 
 @Controller
 public class LoginController {
@@ -21,11 +21,19 @@ public class LoginController {
 	private Logger logger = Logger.getLogger(this.getClass());
 
 	@Autowired
-	private UserRepository userRepository;
+	private UserRepository userService;
 	@Autowired
-	private InfoService infoService;
+	private IInfoService infoService;
 	@Autowired
-	private AuthorityService authorityService;
+	private IAuthorityService authorityService;
+
+	public void setAuthorityService(IAuthorityService authorityService) {
+		this.authorityService = authorityService;
+	}
+
+	public void setInfoService(IInfoService infoService) {
+		this.infoService = infoService;
+	}
 
 	/**
 	 * Afficher la page de login
@@ -33,7 +41,7 @@ public class LoginController {
 	 * @return ModelAndView
 	 *  
 	 */
-	@GetMapping("login")
+	@GetMapping("/login")
 	public ModelAndView login(Authentication authentication) {
 		logger.info("INFO: Afficher la page de login");
 		ModelAndView mav = new ModelAndView();
@@ -53,7 +61,7 @@ public class LoginController {
 	 *  
 	 */
 	@GetMapping("/secure/article-details")
-	public ModelAndView home(Principal user) {
+	public ModelAndView usersList(Principal user) {
 		logger.info("INFO: Afficher la liste des users de l'application");
 		ModelAndView mav = new ModelAndView();
 		if (user instanceof UsernamePasswordAuthenticationToken) {
@@ -69,7 +77,7 @@ public class LoginController {
 			mav.addObject("userInfo", userInfo.append(infoService.getOauth2LoginInfo(user)).toString());
 		}
 
-		mav.addObject("users", userRepository.findAll());
+		mav.addObject("users", userService.findAll());
 		mav.setViewName("user/list");
 		return mav;
 	}

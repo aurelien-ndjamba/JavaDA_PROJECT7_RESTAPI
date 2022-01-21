@@ -14,12 +14,13 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import com.nnk.springboot.domain.RuleName;
 import com.nnk.springboot.repositories.RuleNameRepository;
+import com.nnk.springboot.services.impl.RuleNameServiceImpl;
 
 @SpringBootTest
 public class RuleNameServiceTest {
 	
 	@Autowired
-	private RuleNameService ruleNameService;
+	private RuleNameServiceImpl ruleNameService;
 	
 	@Mock
 	private RuleNameRepository ruleNameRepositoryMock;

@@ -14,13 +14,14 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import com.nnk.springboot.domain.Trade;
 import com.nnk.springboot.repositories.TradeRepository;
+import com.nnk.springboot.services.impl.TradeServiceImpl;
 
 
 @SpringBootTest
 public class TradeServiceTest {
 	
 	@Autowired
-	private TradeService tradeService;
+	private TradeServiceImpl tradeService;
 	
 	@Mock
 	private TradeRepository tradeRepositoryMock;

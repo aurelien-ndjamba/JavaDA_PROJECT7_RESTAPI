@@ -14,12 +14,13 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import com.nnk.springboot.domain.BidList;
 import com.nnk.springboot.repositories.BidListRepository;
+import com.nnk.springboot.services.impl.BidListServiceImpl;
 
 @SpringBootTest
 public class BidServiceTest {
 	
 	@Autowired
-	private BidListService bidListService;
+	private BidListServiceImpl bidListService;
 	
 	@Mock
 	private BidListRepository bidListRepositoryMock;
