@@ -1,11 +1,28 @@
 # JavaDA_PROJECT7_RESTAPI : POSEIDON
+Ce logiciel d’entreprise déployé sur le Web vise à générer davantage de transactions pour les investisseurs institutionnels qui achètent et vendent des titres à revenu fixe.
 
-Poseidon Inc. est une société financière de premier plan créée en 2012. 
+## Pour commencer:
+- Cloner la derniere release du projet
+- Installer MYSQL sur votre pc 
+- Créer une base de donnée nommée "demo"
+- Cette base de donnée doit etre accessible à partir d'un username 'root' et d'un mot de passe 'rootroot'
 
-L'application doit être implémentée à l'aide de Spring Boot, Spring Data JPA et Spring Security. L'interface utilisateur a déjà été développée (voir les captures d'écran ici), il te suffit donc de compléter le code back-end. Je t’enverrai les exigences via des notifications JIRA, mais sois vigilant sur les points suivants :
+## Démarrage:
+mvn spring-boot:run
 
-Ajouter des logs dans le code à chaque fois qu’une requête est traité ;  
-Valider la saisie, en particulier pour les champs numériques (comprenant uniquement des chiffres) et pour les mots de passe (au moins une lettre majuscule, au moins 8 caractères, au moins un chiffre et un symbole) ;
-N'oublie pas de gérer l'authentification par les deux modes ; 
-Et bien sûr, il faut tout tester. 
+## Fabriqué avec
+1. Framework: Spring Boot v2.0.4
+2. Java 8
+3. Thymeleaf
+4. Bootstrap v.4.3.1
+5. MYSQL 8.0.23
+6. Eclipe IDE Version: 2020-09 (4.17.0)
+
+## Version
+poseidon_release_1.0
+
+## Autheur
+- Aurélien NDJAMBA
+
+## License
 
