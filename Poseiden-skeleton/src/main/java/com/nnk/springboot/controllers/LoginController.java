@@ -27,17 +27,32 @@ public class LoginController {
 	@Autowired
 	private IAuthorityService authorityService;
 
+	/**
+	 * Setter AuthorityService
+	 * 
+	 * @param IAuthorityService
+	 * @return void
+	 * 
+	 */
 	public void setAuthorityService(IAuthorityService authorityService) {
 		this.authorityService = authorityService;
 	}
 
+	/**
+	 * Setter InfoService
+	 * 
+	 * @param IInfoService
+	 * @return void
+	 * 
+	 */
 	public void setInfoService(IInfoService infoService) {
 		this.infoService = infoService;
 	}
 
 	/**
-	 * Afficher la page de login
+	 * Méthode pour afficher la page de login
 	 * 
+	 * @param Authentication
 	 * @return ModelAndView
 	 *  
 	 */
@@ -55,8 +70,9 @@ public class LoginController {
 	}
 
 	/**
-	 * Afficher la liste des users de l'application
+	 * Méthode pour afficher la liste des users de l'application
 	 * 
+	 * @param Principal
 	 * @return ModelAndView
 	 *  
 	 */
@@ -83,8 +99,9 @@ public class LoginController {
 	}
 
 	/**
-	 * Afficher la page d'erreur pour un utilisateur non autorisé
+	 * Méthode pour afficher la page d'erreur pour un utilisateur non autorisé
 	 * 
+	 * @param Principal
 	 * @return ModelAndView
 	 *  
 	 */

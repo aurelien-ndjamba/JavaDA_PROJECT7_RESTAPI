@@ -34,8 +34,9 @@ public class RatingController {
 	private IRatingService ratingService;
 
 	/**
-	 * Afficher tous les 'ratings' de l'application
+	 * Méthode pour afficher tous les 'ratings' de l'application
 	 * 
+	 * @param Principal
 	 * @return ModelAndView
 	 *  
 	 */
@@ -63,8 +64,10 @@ public class RatingController {
 	}
 
 	/**
-	 * Afficher les onglets pour ajouter un nouveau 'rating' dans l'application
+	 * Méthode pour afficher les onglets pour ajouter un nouveau 'rating' dans l'application
 	 * 
+	 * @param Rating
+	 * @param Model
 	 * @return String
 	 *  
 	 */
@@ -76,8 +79,9 @@ public class RatingController {
 	}
 
 	/**
-	 * Ajouter un nouveau 'rating' dans l'application
+	 * Méthode pour ajouter un nouveau 'rating' dans l'application
 	 * 
+	 * @param Rating
 	 * @return String
 	 *  
 	 */
@@ -89,13 +93,11 @@ public class RatingController {
 		return "redirect:/rating/list";
 	}
 
-	public void setRatingService(IRatingService ratingService) {
-		this.ratingService = ratingService;
-	}
-
 	/**
-	 * Afficher les onglets pour mettre à jour un 'rating' déjà existant dans l'application
+	 * Méthode pour afficher les onglets pour mettre à jour un 'rating' déjà existant dans l'application
 	 * 
+	 * @param Integer
+	 * @param Model
 	 * @return String
 	 *  
 	 */
@@ -109,8 +111,10 @@ public class RatingController {
 	}
 
 	/**
-	 * Mettre à jour un 'rating' déjà existant dans l'application
+	 * Méthode pour mettre à jour un 'rating' déjà existant dans l'application
 	 * 
+	 * @param Integer
+	 * @param Rating
 	 * @return String
 	 *  
 	 */
@@ -125,8 +129,9 @@ public class RatingController {
 	}
 
 	/**
-	 * Supprimer un 'rating' existant dans l'application
+	 * Méthode pour supprimer un 'rating' existant dans l'application
 	 * 
+	 * @param Integer
 	 * @return String
 	 *  
 	 */
@@ -138,11 +143,36 @@ public class RatingController {
 		return "redirect:/rating/list";
 	}
 
+	/**
+	 * Setter AuthorityService
+	 * 
+	 * @param IAuthorityService
+	 * @return void
+	 * 
+	 */
 	public void setAuthorityService(IAuthorityService authorityService) {
 		this.authorityService = authorityService;
 	}
 
+	/**
+	 * Setter InfoService
+	 * 
+	 * @param IInfoService
+	 * @return void
+	 * 
+	 */
 	public void setInfoService(IInfoService infoService) {
 		this.infoService = infoService;
+	}
+
+	/**
+	 * Setter RatingService
+	 * 
+	 * @param IRatingService
+	 * @return void
+	 * 
+	 */
+	public void setRatingService(IRatingService ratingService) {
+		this.ratingService = ratingService;
 	}
 }

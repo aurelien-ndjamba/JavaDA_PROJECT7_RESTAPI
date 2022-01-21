@@ -35,8 +35,9 @@ public class TradeController {
 	private ITradeService tradeService;
 
 	/**
-	 * Afficher tous les 'trades' de l'application
+	 * Méthode pour afficher tous les 'trades' de l'application
 	 * 
+	 * @param Principal
 	 * @return ModelAndView
 	 * 
 	 */
@@ -64,21 +65,24 @@ public class TradeController {
 	}
 
 	/**
-	 * Afficher les onglets pour ajouter un nouveau 'trade' dans l'application
+	 * Méthode pour afficher les onglets pour ajouter un nouveau 'trade' dans l'application
 	 * 
+	 * @param Trade
+	 * @param Model
 	 * @return String
 	 * 
 	 */
 	@GetMapping("/trade/add")
-	public String addTradeForm(Trade bid, Model model) {
+	public String addTradeForm(Trade trade, Model model) {
 		logger.info("INFO: Afficher les onglets pour ajouter un nouveau 'trade' dans l'application");
 		model.addAttribute("trade", new Trade());
 		return "trade/add";
 	}
 
 	/**
-	 * Ajouter un nouveau 'trade' dans l'application
+	 * Méthode pour ajouter un nouveau 'trade' dans l'application
 	 * 
+	 * @param Trade
 	 * @return String
 	 * 
 	 */
@@ -91,9 +95,11 @@ public class TradeController {
 	}
 
 	/**
-	 * Afficher les onglets pour mettre à jour un 'ruleName' déjà existant dans
+	 * Méthode pour afficher les onglets pour mettre à jour un 'ruleName' déjà existant dans
 	 * l'application
 	 * 
+	 * @param Integer
+	 * @param Model
 	 * @return String
 	 * 
 	 */
@@ -107,8 +113,10 @@ public class TradeController {
 	}
 
 	/**
-	 * Mettre à jour un 'trade' déjà existant dans l'application
+	 * Méthode pour mettre à jour un 'trade' déjà existant dans l'application
 	 * 
+	 * @param integer
+	 * @param Trade
 	 * @return String
 	 * 
 	 */
@@ -123,8 +131,10 @@ public class TradeController {
 	}
 
 	/**
-	 * Supprimer un 'trade' existant dans l'application
+	 * Méthode pour supprimer un 'trade' existant dans l'application
 	 * 
+	 * @param Integer
+	 * @Param Model
 	 * @return String
 	 * 
 	 */
@@ -136,14 +146,35 @@ public class TradeController {
 		return "redirect:/trade/list";
 	}
 
+	/**
+	 * Setter TradeService
+	 * 
+	 * @param ITradeService
+	 * @return void
+	 * 
+	 */
 	public void setTradeService(ITradeService tradeService) {
 		this.tradeService = tradeService;
 	}
 
+	/**
+	 * Setter AuthorityService
+	 * 
+	 * @param IAuthorityService
+	 * @return void
+	 * 
+	 */
 	public void setAuthorityService(IAuthorityService authorityService) {
 		this.authorityService = authorityService;
 	}
 
+	/**
+	 * Setter InfoService
+	 * 
+	 * @param IInfoService
+	 * @return void
+	 * 
+	 */
 	public void setInfoService(IInfoService infoService) {
 		this.infoService = infoService;
 	}

@@ -25,8 +25,10 @@ public class UserController {
 	private IUserService userService;
 
 	/**
-	 * Afficher les champs pour la création d'un nouvel user
+	 * Méthode pour afficher les champs pour la création d'un nouvel user
 	 * 
+	 * @param Authentication
+	 * @param Model
 	 * @return String
 	 *  
 	 */
@@ -38,8 +40,12 @@ public class UserController {
 	}
 
 	/**
-	 * Création reussie d'un nouvel user
+	 * Méthode pour créer un nouvel user
 	 * 
+	 * @param User
+	 * @param BindingResult
+	 * @param Model
+	 * @param Authentication
 	 * @return String
 	 *  
 	 */
@@ -75,8 +81,10 @@ public class UserController {
 	}
 
 	/**
-	 * Afficher les champs pour la mise à jour d'un user existant
+	 * Méthode pour afficher les champs pour la mise à jour d'un user existant
 	 * 
+	 * @param Integer
+	 * @param Model
 	 * @return String
 	 *  
 	 */
@@ -90,8 +98,12 @@ public class UserController {
 	}
 
 	/**
-	 * Mise à jour d'un user existant
+	 * Méthode pour mettre à jour d'un user existant
 	 * 
+	 * @param Integer
+	 * @param User
+	 * @param BindingResult
+	 * @param Model
 	 * @return String
 	 *  
 	 */
@@ -112,8 +124,10 @@ public class UserController {
 	}
 
 	/**
-	 * Suppression d'un user existant
+	 * Méthode pour suppression d'un user existant
 	 * 
+	 * @param Integer
+	 * @param Model
 	 * @return String
 	 *  
 	 */
@@ -126,6 +140,13 @@ public class UserController {
 		return "redirect:/secure/article-details";
 	}
 
+	/**
+	 * Setter UserService
+	 * 
+	 * @param IUserService
+	 * @return void
+	 * 
+	 */
 	public void setUserService(IUserService userService) {
 		this.userService = userService;
 	}

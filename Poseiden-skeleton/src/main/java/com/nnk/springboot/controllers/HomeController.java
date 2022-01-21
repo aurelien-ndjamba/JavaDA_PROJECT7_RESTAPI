@@ -13,8 +13,10 @@ public class HomeController {
 	private Logger logger = Logger.getLogger(this.getClass());
 	
 	/**
-	 * Afficher la page principale pour un utilisateur non authentifié de l'application
+	 * Méthode pour afficher la page principale pour un utilisateur non authentifié de l'application
 	 * 
+	 * @param Authentication
+	 * @param Model
 	 * @return String
 	 *  
 	 */
@@ -28,8 +30,9 @@ public class HomeController {
 	}
 
 	/**
-	 * Afficher la page principale pour un utilisateur authentifié de l'application
+	 * Méthode pour afficher la page principale pour un utilisateur authentifié de l'application
 	 * 
+	 * @param Model
 	 * @return String
 	 *  
 	 */

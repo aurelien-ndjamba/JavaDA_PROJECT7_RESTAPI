@@ -35,8 +35,9 @@ public class RuleNameController {
 	private IRuleNameService ruleNameService;
 
 	/**
-	 * Afficher tous les 'ruleNames' de l'application
+	 * Méthode pour afficher tous les 'ruleNames' de l'application
 	 * 
+	 * @param Principal
 	 * @return ModelAndView
 	 * 
 	 */
@@ -64,8 +65,11 @@ public class RuleNameController {
 	}
 
 	/**
-	 * Afficher les onglets pour ajouter un nouveau 'ruleName' dans l'application
+	 * Méthode pour afficher les onglets pour ajouter un nouveau 'ruleName' dans
+	 * l'application
 	 * 
+	 * @param RuleName
+	 * @param Model
 	 * @return String
 	 * 
 	 */
@@ -77,8 +81,9 @@ public class RuleNameController {
 	}
 
 	/**
-	 * Ajouter un nouveau 'ruleName' dans l'application
+	 * Méthode pour ajouter un nouveau 'ruleName' dans l'application
 	 * 
+	 * @param RuleName
 	 * @return String
 	 * 
 	 */
@@ -92,9 +97,11 @@ public class RuleNameController {
 	}
 
 	/**
-	 * Afficher les onglets pour mettre à jour un 'ruleName' déjà existant dans
-	 * l'application
+	 * Méthode pour afficher les onglets pour mettre à jour un 'ruleName' déjà
+	 * existant dans l'application
 	 * 
+	 * @param Integer
+	 * @param Model
 	 * @return String
 	 * 
 	 */
@@ -108,8 +115,10 @@ public class RuleNameController {
 	}
 
 	/**
-	 * Mettre à jour un 'ruleName' déjà existant dans l'application
+	 * Méthode pour mettre à jour un 'ruleName' déjà existant dans l'application
 	 * 
+	 * @param Integer
+	 * @param RuleName
 	 * @return String
 	 * 
 	 */
@@ -124,8 +133,10 @@ public class RuleNameController {
 	}
 
 	/**
-	 * Supprimer un 'ruleName' existant dans l'application
+	 * Méthode pour supprimer un 'ruleName' existant dans l'application
 	 * 
+	 * @param Integer
+	 * @param Model
 	 * @return String
 	 * 
 	 */
@@ -137,14 +148,35 @@ public class RuleNameController {
 		return "redirect:/ruleName/list";
 	}
 
+	/**
+	 * Setter RuleNameService
+	 * 
+	 * @param IRuleNameService
+	 * @return void
+	 * 
+	 */
 	public void setRuleNameService(IRuleNameService ruleNameService) {
 		this.ruleNameService = ruleNameService;
 	}
 
+	/**
+	 * Setter InfoService
+	 * 
+	 * @param IInfoService
+	 * @return void
+	 * 
+	 */
 	public void setInfoService(IInfoService infoService) {
 		this.infoService = infoService;
 	}
 
+	/**
+	 * Setter AuthorityService
+	 * 
+	 * @param IAuthorityService
+	 * @return void
+	 * 
+	 */
 	public void setAuthorityService(IAuthorityService authorityService) {
 		this.authorityService = authorityService;
 	}

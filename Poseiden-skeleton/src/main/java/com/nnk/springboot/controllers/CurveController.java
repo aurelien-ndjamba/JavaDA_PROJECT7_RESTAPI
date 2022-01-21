@@ -39,8 +39,9 @@ public class CurveController {
 	private ICurvePointService curvePointService;
 
 	/**
-	 * Afficher tous les 'curvePoints' de l'application
+	 * Méthode pour afficher tous les 'curvePoints' de l'application
 	 * 
+	 * @param Principal
 	 * @return ModelAndView
 	 *  
 	 */
@@ -68,8 +69,10 @@ public class CurveController {
 	}
 
 	/**
-	 * Afficher les onglets pour ajouter un nouveau 'curvePoint' dans l'application
+	 * Méthode pour afficher les onglets pour ajouter un nouveau 'curvePoint' dans l'application
 	 * 
+	 * @param CurvePoint
+	 * @param Model
 	 * @return String
 	 *  
 	 */
@@ -81,8 +84,11 @@ public class CurveController {
 	}
 
 	/**
-	 * Ajouter un nouveau 'curvePoint' dans l'application
+	 * Méthode pour ajouter un nouveau 'curvePoint' dans l'application
 	 * 
+	 * @param CurvePoint
+	 * @param BindingResult
+	 * @param Model
 	 * @return String
 	 *  
 	 */
@@ -101,8 +107,10 @@ public class CurveController {
 	}
 
 	/**
-	 * Afficher les onglets pour mettre à jour un 'curvePoint' déjà existant dans l'application
+	 * Méthode pour afficher les onglets pour mettre à jour un 'curvePoint' déjà existant dans l'application
 	 * 
+	 * @param Integer
+	 * @param Model
 	 * @return String
 	 *  
 	 */
@@ -116,8 +124,11 @@ public class CurveController {
 	}
 
 	/**
-	 * Mettre à jour un 'curvePoint' déjà existant dans l'application
+	 * Méthode pour mettre à jour un 'curvePoint' déjà existant dans l'application
 	 * 
+	 * @param Integer
+	 * @param CurvePoint
+	 * @param BindingResult
 	 * @return String
 	 *  
 	 */
@@ -139,7 +150,9 @@ public class CurveController {
 	}
 
 	/**
+	 * Méthode pour supprimer un 'curvePoint' existant dans l'application
 	 * 
+	 * @param Integer
 	 * @return String
 	 *  
 	 */
@@ -151,14 +164,35 @@ public class CurveController {
 		return "redirect:/curvePoint/list";
 	}
 
+	/**
+	 * Setter InfoService
+	 * 
+	 * @param IInfoService
+	 * @return void
+	 * 
+	 */
 	public void setInfoService(IInfoService infoService) {
 		this.infoService = infoService;
 	}
 
+	/**
+	 * Setter CurvePointService
+	 * 
+	 * @param ICurvePointService
+	 * @return void
+	 * 
+	 */
 	public void setCurvePointService(ICurvePointService curvePointService) {
 		this.curvePointService = curvePointService;
 	}
 
+	/**
+	 * Setter AuthorityService
+	 * 
+	 * @param IAuthorityService
+	 * @return void
+	 * 
+	 */
 	public void setAuthorityService(IAuthorityService authorityService) {
 		this.authorityService = authorityService;
 	}

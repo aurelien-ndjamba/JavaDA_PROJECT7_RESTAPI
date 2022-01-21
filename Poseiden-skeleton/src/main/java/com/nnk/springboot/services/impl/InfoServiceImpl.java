@@ -11,11 +11,19 @@ import org.springframework.stereotype.Service;
 import com.nnk.springboot.services.IInfoService;
 
 /**
- * Service InfoService
+ * Service InfoService respectant le contrat dénifi par IInfoService.
  */
 @Service
 public class InfoServiceImpl implements IInfoService{
 	
+	/**
+	 * Méthode définie par IInfoService permettant d'obtenir le username d'un utilisateur qui
+	 * s'identifie à partir de son usermame et son password enregistrés en base de
+	 * donnée
+	 * 
+	 * @param Principal
+	 * @return StringBuffer
+	 */
 	@Override
 	public StringBuffer getUsernamePasswordLoginInfo(Principal user) {
 		StringBuffer usernameInfo = new StringBuffer();
@@ -29,6 +37,13 @@ public class InfoServiceImpl implements IInfoService{
 		return usernameInfo;
 	}
 	
+	/**
+	 * Méthode définie par IInfoService pour obtenir le login d'un utilisateur qui
+	 * s'identifie à partir de son compte GitHub.
+	 * 
+	 * @param Principal
+	 * @return StringBuilder
+	 */
 	@Override
 	public StringBuffer getOauth2LoginInfo(Principal user) {
 		StringBuffer loginInfo = new StringBuffer();

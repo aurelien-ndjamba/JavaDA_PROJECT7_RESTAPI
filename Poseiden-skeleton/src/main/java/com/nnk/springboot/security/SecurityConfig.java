@@ -22,11 +22,23 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Autowired
 	private UserDetailsService userDetailsService;
 
+	/**
+	 * Méthode de configuration de sécurité spring security avec AuthenticationManagerBuilder
+	 * 
+	 * @param AuthenticationManagerBuilder
+	 * @return void
+	 */
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 		auth.userDetailsService(userDetailsService).passwordEncoder(bCryptPasswordEncoder);
 	}
 
+	/**
+	 * Méthode de configuration de sécurité spring security avec HttpSecurity
+	 * 
+	 * @param HttpSecurity
+	 * @return void
+	 */
 	@Override  
 	protected void configure(HttpSecurity http) throws Exception {
 		http 
@@ -70,6 +82,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				; 
 	}
  
+	/**
+	 * Algorithme BCrypt utilisé pour crypter les mots de passe saisis par les utilisateurs
+	 * 
+	 * @return BCryptPasswordEncoder
+	 */
 	@Bean
 	public BCryptPasswordEncoder getBCPE() {
 		return new BCryptPasswordEncoder(16);

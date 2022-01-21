@@ -38,23 +38,24 @@ public class BidListController {
 	private IBidListService bidListService;
 
 	/**
-	 * Afficher tous les 'bidlists' de l'application
+	 * Méthode pour afficher tous les 'bidlists' de l'application
 	 * 
+	 * @param Principal
 	 * @return ModelAndView
-	 *  
+	 * 
 	 */
 	@RequestMapping("/bidList/list")
 	public ModelAndView home(Principal user) {
 		logger.info("INFO: Afficher tous les 'bidlists' de l'application");
 		ModelAndView mav = new ModelAndView();
-		
+
 		if (user instanceof UsernamePasswordAuthenticationToken) {
 			if (authorityService.getUsernamePasswordLoginAuthority(user).toString().contains("ADMIN"))
 				mav.addObject("authority", authorityService.getUsernamePasswordLoginAuthority(user).toString());
-			
+
 			StringBuffer userInfo = new StringBuffer();
 			mav.addObject("userInfo", userInfo.append(infoService.getUsernamePasswordLoginInfo(user)).toString());
-			
+
 		} else if (user instanceof OAuth2AuthenticationToken) {
 			StringBuffer userInfo = new StringBuffer();
 			mav.addObject("userInfo", userInfo.append(infoService.getOauth2LoginInfo(user)).toString());
@@ -69,10 +70,12 @@ public class BidListController {
 	}
 
 	/**
-	 * Afficher les onglets pour ajouter un nouveau 'bidlist' dans l'application"
+	 * Méthode pour afficher les onglets pour ajouter un nouveau 'bidlist' dans l'application"
 	 * 
+	 * @param BidList
+	 * @param Model
 	 * @return String
-	 *  
+	 * 
 	 */
 	@GetMapping("/bidList/add")
 	public String addBidForm(BidList bid, Model model) {
@@ -82,10 +85,13 @@ public class BidListController {
 	}
 
 	/**
-	 * Ajouter un nouveau 'bidlist' dans l'application
+	 * Méthode pour ajouter un nouveau 'bidlist' dans l'application
 	 * 
+	 * @param BidList
+	 * @param BindingResult
+	 * @param Model
 	 * @return String
-	 *  
+	 * 
 	 */
 	@PostMapping("/bidList/validate")
 	public String validate(@Valid BidList bid, BindingResult result, Model model) {
@@ -104,10 +110,13 @@ public class BidListController {
 	}
 
 	/**
-	 * Afficher les onglets pour mettre à jour un 'bidlist' déjà existant dans l'application
+	 * Méthode pour afficher les onglets pour mettre à jour un 'bidlist' déjà existant dans
+	 * l'application
 	 * 
+	 * @param Integer
+	 * @param Model
 	 * @return String
-	 *  
+	 * 
 	 */
 	@GetMapping("/bidList/update/{id}")
 	public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
@@ -119,10 +128,14 @@ public class BidListController {
 	}
 
 	/**
-	 * Mettre à jour un 'bidlist' déjà existant dans l'application
+	 * Méthode pour mettre à jour un 'bidlist' déjà existant dans l'application
 	 * 
+	 * @param Integer
+	 * @param BidList
+	 * @param BindingResult
+	 * @param Model
 	 * @return String
-	 *  
+	 * 
 	 */
 	@PostMapping("/bidList/update/{id}")
 	public String updateBid(@PathVariable("id") Integer id, @Valid BidList bidList, BindingResult result, Model model) {
@@ -143,10 +156,11 @@ public class BidListController {
 	}
 
 	/**
-	 * Supprimer un 'bidlist' existant dans l'application
+	 * Méthode pour supprimer un 'bidlist' existant dans l'application
 	 * 
+	 * @param integer
 	 * @return String
-	 *  
+	 * 
 	 */
 	@GetMapping("/bidList/delete/{id}")
 	public String deleteBid(@PathVariable("id") Integer id) {
@@ -156,14 +170,35 @@ public class BidListController {
 		return "redirect:/bidList/list";
 	}
 
+	/**
+	 * Setter AuthorityService
+	 * 
+	 * @param IAuthorityService
+	 * @return void
+	 * 
+	 */
 	public void setAuthorityService(IAuthorityService authorityService) {
 		this.authorityService = authorityService;
 	}
 
+	/**
+	 * Setter InfoService
+	 * 
+	 * @param IInfoService
+	 * @return void
+	 * 
+	 */
 	public void setInfoService(IInfoService infoService) {
 		this.infoService = infoService;
 	}
 
+	/**
+	 * Setter BidListService
+	 * 
+	 * @param IBidListService
+	 * @return void
+	 * 
+	 */
 	public void setBidListService(IBidListService bidListService) {
 		this.bidListService = bidListService;
 	}
