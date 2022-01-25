@@ -12,7 +12,7 @@ Ce logiciel d’entreprise déployé sur le Web vise à générer davantage de t
 ## Démarrage:
 mvn spring-boot:run
 
-## Fabriqué avec
+## Technologies
 1. Framework: Spring Boot v2.0.4
 2. Java 8
 3. Thymeleaf
