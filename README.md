@@ -1,4 +1,4 @@
-https://forthebadge.com/generator/?plabel=MADE+WITH&slabel=JAVA+%2F+SPRING+BOOT+%2F+HTML5+%2F+CSS3+%2F+BOOSTRAP+%2F+THYMELEAF+%2F+MYSQL+%2F+ECLIPSE+IDE&sbg=%23E46C17&pbg=%23005384
+[![forthebadge](https://forthebadge.com/images/badges/made-with-java.svg)](https://forthebadge.com) [![forthebadge](https://forthebadge.com/images/badges/open-source.svg)](https://forthebadge.com)[![forthebadge](https://forthebadge.com/images/badges/uses-css.svg)](https://forthebadge.com)[![forthebadge](https://forthebadge.com/images/badges/uses-html.svg)](https://forthebadge.com)
 
 # JavaDA_PROJECT7_RESTAPI : POSEIDON
 Ce logiciel d’entreprise déployé sur le Web vise à générer davantage de transactions pour les investisseurs institutionnels qui achètent et vendent des titres à revenu fixe.
