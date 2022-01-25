@@ -1,5 +1,5 @@
 [![forthebadge](https://forthebadge.com/images/badges/built-with-love.svg)](https://forthebadge.com)
-https://forthebadge.com/images/badges/built-with-love.svg
+
 # JavaDA_PROJECT7_RESTAPI : POSEIDON
 Ce logiciel d’entreprise déployé sur le Web vise à générer davantage de transactions pour les investisseurs institutionnels qui achètent et vendent des titres à revenu fixe.
 
